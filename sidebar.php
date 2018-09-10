@@ -110,12 +110,36 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="expense.php" id="expense">
                         <i class="fas fa-paper-plane"></i>
-                        ...
+                        Expenses
                     </a>
                 </li>
+                <li>
+                    <a href="timetable.php" id="timetable">
+                        <i class="fas fa-paper-plane"></i>
+                        Time Table
+                    </a>
+                </li>
+                <li>
+                    <a href="#ssmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="supportstaff">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Support Staff
+                    </a>
+                    <ul class="collapse list-unstyled" id="ssmenu">
+                        <li>
+                            <a href="staff.php" id="sstaff">Support Staff</a>
+                        </li>
+                        <li>
+                            <a href="add-staff.php" id="addstaff">Add Staff</a>
+                        </li>
+                        <li>
+                            <a href="" id="">---</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
+            <!---------------------------------------------------------------->
             <div class="btn" id="clob"><a href="logout.php" style="color: black;">logout</a></div>
             <ul class="list-unstyled CTAs">
                 <li>
