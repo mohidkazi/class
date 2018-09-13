@@ -66,14 +66,12 @@ span {
         background: #183755;
         color: #fff;
         transition: all 0.3s;
-        overflow-y: scroll !important;
     }
 
     #sidebar.active {
         min-width: 80px;
         max-width: 80px;
         text-align: center;
-        overflow-y: scroll !important;
     }
 
     #sidebar.active .sidebar-header h3,
@@ -276,6 +274,6 @@ span {
         }
         /* custom */
         #content{
-            padding: 0 1px;
+            padding: 0;
         }
     }

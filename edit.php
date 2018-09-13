@@ -6,83 +6,214 @@ include("sidebar.php");
 <!-- edit and update for faculty only -->
 <?php if(isset($_GET['fid'])){
 	$id = secure($_GET['fid']);
-	$string = "SELECT * FROM `faculty` WHERE `id`=$id";
+	$string = "SELECT * FROM `faculty` WHERE `F_ID`=$id";
 	$temp = $sql->query($string);
 	if($demo = $temp->fetch_row()){
 		?>
-		<form action="update.php?fid=<?php echo $id; ?>" method="post">
-			<div class="form-group">
-				<input type="text" name="firstname" placeholder="First Name" class="col-sm-6" value='<?php echo $demo[1] ?>'>
-			</div>
-			<div class="form-group">
-				<input type="text" name="lastname" placeholder="Last Name" class="col-sm-6" value='<?php echo $demo[2]; ?>'>
-			</div>
-			<div class="form-group">
-				<input type="text" name="contact" placeholder="Contact" class="col-sm-6" value='<?php echo $demo[3]; ?>'>
-			</div>
-			<div class="form-group">
-				<input type="text" name="email" placeholder="E-mail" class="col-sm-6" value='<?php echo $demo[4]; ?>'>
-			</div>
-			<div class="form-group">
-				<textarea name="address" cols="30" rows="3" placeholder="Address" class="col-sm-6" value='<?php echo $demo[5]; ?>'></textarea>
-			</div>
-			<div class="form-group">
-				<label for="qualiii">qualification</label>
-				<select class="form-control col-sm-4" name="quali" id="qualiii" value='<?php echo $demo[6]; ?>'>
-					<option value="">be</option>
-					<option value="">me</option>
-					<option value="">mtech</option>
-					<option value="">mba</option>
-					<option value="">phd</option>
-				</select>
-			</div>
-			<div class="form-group">
-				<input type="text" name="description" placeholder="Description" class="col-sm-6" value='<?php echo $demo[7]; ?>'>
-			</div>
-			<button class="btn btn-info justify-content-center" type="submit" name="faculty-submit">Submit</button>
-		</form>
+		<div class="container">
+			<form action="update.php?fid=<?php echo $id; ?>" method="post">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="fname1">First Name</label>
+						<input type="text" class="form-control" id="fname1" placeholder="First Name" name="firstname" value='<?php echo $demo[1]; ?>'>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="lname1">Last Name</label>
+						<input type="texte" class="form-control" id="lname1" placeholder="Last Name" name="lastname" value='<?php echo $demo[2]; ?>'>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="contact1">Contact</label>
+						<input type="tel" class="form-control" id="contact1" placeholder="Contact" name="contact" value='<?php echo $demo[3]; ?>'>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="InputEmail1">Email address</label>
+						<input type="email" class="form-control" id="InputEmail1" placeholder="Enter email" name="email" value='<?php echo $demo[4]; ?>'>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="add1">Address</label>
+						<textarea class="form-control" id="add1" rows="3" placeholder="Address" name="address"><?php echo $demo[5]; ?></textarea>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="exampleFormControlSelect1">Qualification</label>
+						<select class="form-control" id="exampleFormControlSelect1" name="qualification">
+							<option value="<?php echo $demo[6]; ?>" selected><?php echo $demo[6]; ?></option>
+							<option value="B.E">B.E</option>
+							<option value="BTech">BTech</option>
+							<option value="M.E">M.E</option>
+							<option value="M.Tech">M.Tech</option>
+							<option value="MBA">MBA</option>
+							<option value="PhD">PhD</option>
+							<option value="BSc(IT)">BSc(IT)</option>
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="pic">Picture</label>
+						<input type="file" class="form-control-file" id="pic" name="image" value='<?php echo $demo[7]; ?>'>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="exp1">Experience</label>
+						<input type="text" class="form-control" id="exp1" placeholder="Experience" name="experience" value='<?php echo $demo[8]; ?>'>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="about1">About</label>
+						<input type="text" class="form-control" id="about1" placeholder="About" name="about" value='<?php echo $demo[9]; ?>'>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="exampleInputEmail1">Date of Joining</label>
+						<input type="date" class="form-control" id="exampleInputEmail1" placeholder="Date of Joining" name="doj" value='<?php echo $demo[10]; ?>'>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="form-group">
+						<button class="btn btn-primary" type="submit" name="faculty-submit">Submit</button>
+					</div>
+				</div>
+			</form>
+		</div>
 	<?php } }?>
 
 	<!-- edit and update for batch only -->
 	<?php 
 	if(isset($_GET['bid'])){
 		$id = secure($_GET['bid']);
-		$string = "SELECT * FROM `batch` WHERE `id`=$id";
+		$string = "SELECT * FROM `batch` WHERE `B_ID`=$id";
 		$temp = $sql->query($string);
-		if($asdf = $temp->fetch_row()){
-			?> 
-			<form action="update.php?bid=<?php echo $id; ?>" method="post">
-				<div class="form-group">
-					<input type="text" name="name" placeholder="Name" class="col-sm-6" value="<?php echo $asdf[1]; ?>">
-				</div>
-				<div class="form-group">
-					<input type="text" name="venue" placeholder="Venue" class="col-sm-6" value="<?php echo $asdf[2]; ?>">
-				</div>
-				<div class="form-group">
-					<input type="num" name="fees" placeholder="Fees" class="col-sm-6" value="<?php echo $asdf[3]; ?>">
-				</div>
-				<div class="form-group">
-					<input type="text" name="fid" placeholder="fid" class="col-sm-6" value="<?php echo $asdf[4]; ?>">
-				</div>
-				<div class="form-group">
-					<input type="date" name="startdate" placeholder="Start Date" class="col-sm-6" value="<?php echo $asdf[5]; ?>">
-				</div>
-				<div class="form-group">
-					<input type="date" name="enddate" placeholder="End Date" class="col-sm-6" value="<?php echo $asdf[6]; ?>">
-				</div>
-				<div class="form-group">
-					<input type="text" name="duration" placeholder="Duration" class="col-sm-6" value="<?php echo $asdf[7]; ?>">
-				</div>
-				<div class="form-group">
-					<input type="text" name="status" placeholder="Status" class="col-sm-6" value="<?php echo $asdf[8]; ?>">
-				</div>
-				<button class="btn btn-success" name="batch-submit" type="submit">Submit</button>
-			</form>
+		if($demo = $temp->fetch_row()){
+			?>
+			<div class="container">
+				<form action="update.php?bid=<?php echo $id; ?>" method="post">
+					<div class="form-row">
+						<div class="form-group col-sm-6">
+							<label for="name">Name</label>
+							<input type="text" class="form-control" id="name"  placeholder="Name" name="name" value="<?php echo $demo[1]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="venue">Venue</label>
+							<input type="text" class="form-control" id="venue" placeholder="Venue" name="venue" value="<?php echo $demo[2]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="fees">Fees</label>
+							<input type="number" class="form-control" id="fees" placeholder="Fees" name="fees" value="<?php echo $demo[3]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="fid">ID</label>
+							<input type="text" class="form-control" id="fid" placeholder="ID" name="id" value="<?php echo $demo[4]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="Date">Start Date</label>
+							<input type="date" class="form-control" id="Date" name="startdate" value="<?php echo $demo[5]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="Date">End Date</label>
+							<input type="date" class="form-control" id="Date" name="enddate" value="<?php echo $demo[6]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="dur">Duration</label>
+							<input type="text" class="form-control" id="dur" placeholder="Duration" name="duration" value="<?php echo $demo[7]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="status">Status</label>
+							<input type="number" class="form-control" id="status" placeholder="Status" name="status" value="<?php echo $demo[8]; ?>">
+						</div>
+					</div>
+					<div class="form-row justify-content-center">
+						<button class="btn btn-primary" name="batch-submit" type="submit">Submit</button>
+					</div>
+				</form>
+			</div>
 			<?php
 		}
 	}
 	?>
-</div>
+	<!-- edit and update fot support staff -->
+	<?php 
+	if (isset($_GET['ssid'])) {
+		$id = secure($_GET['ssid']);
+		$string = "SELECT * FROM `supportstaff` WHERE `SS_ID`=$id";
+		$temp = $sql->query($string);
+		if ($demo = $temp->fetch_row()) {
+			?>
+			<div class="container">
+				<form action="update.php?ssid=<?php echo $id; ?>" method="post">
+					<div class="row">
+						<div class="form-group col-sm-6">
+							<label for="fname">First Name</label>
+							<input type="text" class="form-control" id="fname" aria-describedby="emailHelp" placeholder="First Name" name="firstname" value="<?php echo $demo[1]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="lname">Last Name</label>
+							<input type="text" class="form-control" id="lname" placeholder="Last Name" name="lastname" value="<?php echo $demo[2]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="contact1">Contact</label>
+							<input type="number" class="form-control" id="contact1" aria-describedby="emailHelp" placeholder="Contact" name="contact" value="<?php echo $demo[3]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="InputEmail1">Email address</label>
+							<input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="<?php echo $demo[4]; ?>">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="exampleInputPassword1">Address</label>
+							<textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Address" name="address"><?php echo $demo[5]; ?></textarea>
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="doj">Date Of Join</label>
+							<input type="date" class="form-control" id="doj" name="doj" value="<?php echo $demo[6]; ?>">
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<button type="submit" class="btn btn-primary" name="ss-submit">Submit</button>
+					</div>
+				</form>
+			</div>
+			<?php
+		}
+	}
+	?>
+	<!-- edit and update admission table -->
+	<?php 
+	if (isset($_GET['admid'])) {
+		$id = secure($_GET['admid']);
+		$string = "SELECT * FROM `admission` WHERE `A_ID`=$id";
+		$temp = $sql->query($string);
+		if ($demo = $temp->fetch_row()) {
+			?>
+			<div class="container">
+				<form action="update.php?admid=<?php echo $id; ?>" method="post">
+					<div class="row">
+						<div class="form-group col-sm-2">
+							<label for="stu">Student ID</label>
+							<input type="number" class="form-control" id="stu"  placeholder="Student ID" name="sid" value="<?php echo $demo[1]; ?>">
+						</div>
+						<div class="form-group col-sm-2">
+							<label for="bat">Batch ID</label>
+							<input type="number" class="form-control" id="bat" placeholder="Batch ID" name="bid" value="<?php echo $demo[2]; ?>">
+						</div>
+						<div class="form-group col-sm-3">
+							<label for="fees">Fees</label>
+							<input type="text" class="form-control" id="fees" placeholder="Fees" name="fees" value="<?php echo $demo[3]; ?>">
+						</div>
+						<div class="form-group col-sm-3">
+							<label for="date">Date</label>
+							<input type="date" class="form-control" id="date" name="date" value="<?php echo $demo[4]; ?>">
+						</div>
+						<div class="form-group col-sm-2">
+							<label for="stat">Status</label>
+							<input type="number" class="form-control" id="stat"  placeholder="Status" name="status" value="<?php echo $demo[5]; ?>">
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<button type="submit" class="btn btn-primary" name="adm-submit">Submit</button>
+					</div>
+				</form>
+			</div>
+			<?php 
+		} } ?>
+	</div>
 </div>
 </body>
 </html>

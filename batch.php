@@ -11,19 +11,20 @@ if (isset($_GET['update-success'])) {
 }
 ?>
 <!-- page content on right side -->
+<div class="table-responsive">
 <table class="display table" id="datatable">
 	<thead>
 		<tr>
 			<th>id</th>
-			<th>name</th>
-			<th>venue</th>
-			<th>fees</th>
-			<th>fid</th>
-			<th>startdate</th>
-			<th>enddate</th>
-			<th>duration</th>
-			<th>status</th>
-			<th>operations</th>
+			<th>Name</th>
+			<th>Venue</th>
+			<th>Fees</th>
+			<th>Fid</th>
+			<th>Startdate</th>
+			<th>Enddate</th>
+			<th>Duration</th>
+			<th>Status</th>
+			<th>Operation</th>
 		</tr>
 	</thead>
 	<?php  
@@ -42,13 +43,14 @@ if (isset($_GET['update-success'])) {
 				<td><?php echo $demo[6]; ?></td>
 				<td><?php echo $demo[7]; ?></td>
 				<td><?php echo $demo[8]; ?></td>
-				<td><a href="delete.php?bid=<?php echo $demo[0]; ?>">delete</a>
-					<a href="edit.php?bid=<?php echo $demo[0]; ?>">edit</a>
+				<td><a href='delete.php?bid=<?php echo $demo[0]; ?>'><i class="fas fa-trash-alt text-danger"></i></a>&nbsp&nbsp&nbsp&nbsp&nbsp
+					<a href='edit.php?bid=<?php echo $demo[0];?>'><i class="fas fa-user-edit text-primary"></i></a></td>
 				</td>
 			</tr>
 		</tbody>
 	<?php } ?>
 </table>
+</div>
 
 </div>
 </div>
@@ -56,7 +58,7 @@ if (isset($_GET['update-success'])) {
 	$(document).ready(function(e){
 		$('#batch , #dbatch').addClass('active');
 
-		$('#datatble').DataTable();
+		$('#datatable').DataTable();
 	});
 
 </script>

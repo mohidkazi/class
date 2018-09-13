@@ -35,7 +35,7 @@ require("config.php");
 if(isset($_POST['submit'])){
   $username = secure($_POST['username']);
   $password = secure($_POST['password']);
-  $str="SELECT * FROM `customers` WHERE `firstname`='$username' AND `password`='$password' AND `description`='owner'";
+  $str="SELECT * FROM `admin` WHERE `Admin_fname`='$username' OR `Admin_email`='$username' AND `Admin_password`='$password' AND `Admin_designation`='owner'";
   $temp=$sql->query($str);
   if($row=$temp->fetch_row()){
     $_SESSION['lid'] = $row[0];
@@ -49,7 +49,7 @@ if(isset($_POST['submit'])){
 if (isset($_POST['submit'])) {
   $username = secure($_POST['username']);
   $password = secure($_POST['password']);
-  $str="SELECT * FROM `customers` WHERE `firstname`='$username' AND `password`='$password' AND `description`='staff'";
+  $str="SELECT * FROM `admin` WHERE `Admin_fnameme`='$username' OR `Admin_email`='$username' AND `Admin_password`='$password' AND `Admin_designation`='staff'";
   $temp=$sql->query($str);
   if ($demo=$temp->fetch_row()) {
     $_SESSION['lid'] = $demo[0];
