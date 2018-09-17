@@ -83,6 +83,9 @@ span {
         display: none;
     }
     /*custom logout enable*/
+    div#clob{
+        margin: 7px 3px;
+    }
     #sidebar.active div#clob{
         display:block;
     }

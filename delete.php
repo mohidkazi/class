@@ -38,4 +38,20 @@ if(isset($_GET['sid'])){
 	$temp = $sql->query($string);
 	header("location:student.php?del-success");
 }
+
+//delete expense table
+if (isset($_GET['eid'])) {
+	$id = secure($_GET['eid']);
+	$string = "DELETE * FROM `expense` WHERE `E_ID`=$id";
+	$temp = $sql->query($string);
+	header("location:expense.php?del-success");
+}
+
+//delete test marks 
+if (isset($_GET['tmid'])) {
+	$id = secure($_GET['tmid']);
+	$string = "DELETE * FROM `testmarks` WHERE 	`Test_ID`=$id";
+	$temp = $slq->query($string);
+	header("location:testmark.php?del-success");
+}
 ?>

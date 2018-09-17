@@ -178,42 +178,57 @@ include("sidebar.php");
 	<?php 
 	if (isset($_GET['admid'])) {
 		$id = secure($_GET['admid']);
+		
 		$string = "SELECT * FROM `admission` WHERE `A_ID`=$id";
 		$temp = $sql->query($string);
 		if ($demo = $temp->fetch_row()) {
-			?>
-			<div class="container">
-				<form action="update.php?admid=<?php echo $id; ?>" method="post">
-					<div class="row">
-						<div class="form-group col-sm-2">
-							<label for="stu">Student ID</label>
-							<input type="number" class="form-control" id="stu"  placeholder="Student ID" name="sid" value="<?php echo $demo[1]; ?>">
+			$str1 = "SELECT * FROM `student` WHERE `S_ID`=$demo[1]";
+			$tmp1 = $sql->query($str1);
+
+			$str2 = "SELECT * FROM `batch` WHERE `B_ID`=$demo[2]";
+			$tmp2= $sql->query($str2);
+			if ($demo1 = $tmp1->fetch_row() AND $demo2 = $tmp2->fetch_row()) {
+				?>
+				<div class="container">
+					<form action="update.php?admid=<?php echo $id; ?>" method="post">
+						<div class="row">
+							<div class="form-group col-sm-6">
+								<label for="stu">Student First Name</label>
+								<input type="text" class="form-control" id="stu"  placeholder="First Name" name="firstname" value="<?php echo $demo1[2]; ?>">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="stu1">Last Name</label>
+								<input type="text" class="form-control" id="stu1"  placeholder="Last Name" name="lastname" value="<?php echo $demo1[3]; ?>">
+							</div>
+							<div class="form-group col-sm-3">
+								<label for="bat">Batch Name</label>
+								<input type="text" class="form-control" id="bat" placeholder="Batch ID" name="batch_name" value="<?php echo $demo2[1]; ?>">
+							</div>
+							<div class="form-group col-sm-3">
+								<label for="fees">Fees</label>
+								<input type="number" class="form-control" id="fees" placeholder="Fees" name="fees" value="<?php echo $demo[3]; ?>">
+							</div>
+							<div class="form-group col-sm-3">
+								<label for="date">Date</label>
+								<input type="date" class="form-control" id="date" name="date" value="<?php echo $demo[4]; ?>">
+							</div>
+							<div class="form-group col-sm-3">
+								<label for="stat">Status</label>
+								<input type="text" class="form-control" id="stat"  placeholder="Status" name="status" value="<?php echo $demo[5]; ?>">
+							</div>
 						</div>
-						<div class="form-group col-sm-2">
-							<label for="bat">Batch ID</label>
-							<input type="number" class="form-control" id="bat" placeholder="Batch ID" name="bid" value="<?php echo $demo[2]; ?>">
+						<div class="row justify-content-center">
+							<button type="submit" class="btn btn-primary" name="adm-submit">Submit</button>
 						</div>
-						<div class="form-group col-sm-3">
-							<label for="fees">Fees</label>
-							<input type="text" class="form-control" id="fees" placeholder="Fees" name="fees" value="<?php echo $demo[3]; ?>">
-						</div>
-						<div class="form-group col-sm-3">
-							<label for="date">Date</label>
-							<input type="date" class="form-control" id="date" name="date" value="<?php echo $demo[4]; ?>">
-						</div>
-						<div class="form-group col-sm-2">
-							<label for="stat">Status</label>
-							<input type="number" class="form-control" id="stat"  placeholder="Status" name="status" value="<?php echo $demo[5]; ?>">
-						</div>
-					</div>
-					<div class="row justify-content-center">
-						<button type="submit" class="btn btn-primary" name="adm-submit">Submit</button>
-					</div>
-				</form>
-			</div>
-			<?php 
-		} } ?>
-	</div>
+					</form>
+				</div>
+				<?php
+			}
+		}
+	}
+	?>
+
+</div>
 </div>
 </body>
 </html>

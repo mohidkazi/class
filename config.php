@@ -1,5 +1,5 @@
 <?php
-$sql = new mysqli("localhost","root","root","class");
+$sql = new mysqli("localhost","root","","class");
 session_start();
 function secure($strToSecure){
 	global $sql;

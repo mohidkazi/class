@@ -3,6 +3,13 @@ require("config.php");
 ob_start();
 include("sidebar.php");
 ?>
+<?php if (isset($_GET['failed'])) {
+	?>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FF7F7F; color: #FA0404; border-color: red;text-align: center;"><div class="card-body">Failed To Insert Details</div></div></div>
+<?php } ?>
+<?php if (isset($_GET['success'])) { ?>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class="card-body">Details Inserted Successfully</div></div></div>
+<?php } ?>
 <!-- page content on right side -->
 <div class="container">
 	<form action="add-faculty.php" method="post">
@@ -86,9 +93,6 @@ if(isset($_POST['faculty-submit'])){
 	else{header("location:add-faculty.php?failed");}
 }
 ?>
-
-<?php /* if(isset($_GET['success'])){echo "<div class='card text-center'><div class='card-header'>Faculty</div><div class='card-body'> $temp[firstname] $temp[lastname] added into the system</div><div class='card-footer'></div></div>";}
-if(isset($_GET['failed'])){echo "<div class='card bg-success'>could not add faculty into the system</div>";}*/ ?>
 
 </div>
 </div>

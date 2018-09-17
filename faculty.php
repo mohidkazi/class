@@ -4,18 +4,18 @@ ob_start();
 include("sidebar.php");
 ?>
 <!-- style="background-color: #ff6666; color: red; border-color: red; -->
-<?php if (isset($_GET['del-success'])) { ?>
-	<div class="conatiner"><div class='card mb-2 col-sm-3 mx-auto' style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class='card-body'>faculty deleted</div></div></div>
-	<?php } ?>
-
 <?php 
-if (isset($_GET['update-success'])) { ?>
-	<div class="container"><div class='card mb-2 col-sm-3 mx-auto' style="background-color: ; color: green; border-color: green;text-align: center;"><div class='card-body'>faculty updated</div></div></div>
+if (isset($_GET['update-success'])) {
+	?>
+	<div class="container" id="dispnone"><div class='card mb-2 col-sm-5 col-lg-4 mx-auto' style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class='card-body'>Faculty Table Updated</div></div></div>
+<?php } ?>
+<?php if (isset($_GET['del-success'])) { ?>
+	<div class="container" id="dispnone"><div class='card mb-2 col-sm-5 col-lg-3 mx-auto' style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class='card-body'>Row Deleted</div></div></div>
 <?php } ?>
 <?php 
 if (isset($_GET['update-failed'])) {
 	?>
-	<div class="container"><div class="card mb-2 col-sm-4 mx-auto" style="background-color: #ff6666; color: red; border-color: red;text-align: center;"><div class="card-body">update failed</div></div>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-3 mx-auto" style="background-color: #ff6666; color: red; border-color: red;text-align: center;"><div class="card-body">Update Failed</div></div></div>
 <?php } ?>
 <!-- page content on right side -->
 

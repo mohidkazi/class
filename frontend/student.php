@@ -10,11 +10,24 @@
   <title>Registration Form</title>
   <link href="bootstrap.min.css" rel="stylesheet">
   <link href="student.css" rel="stylesheet">
+  <script src="../js/jquery.js"></script>
 </head>
 <body class="text-center bg-info">
   <form class="form-signin" action="#" method="post">
     <!-- <i class="fas fa-trash-alt text-primary"></i> -->
     <img class="mb-4" src="admin.png" alt="" width="70" height="70" style="text-shadow:2px 10px 50px 0 rgb(0,0,0,1);">
+    <?php if (isset($_GET['registered'])) {
+      ?>
+      <div id="dispnone"><div class="card mb-2" style="background-color: white; color: grey; text-align: center;"><div class="card-body">Thank You for Registering</div></div></div>
+      <script>
+        $(document).ready(function(){
+          $('h1').hide();
+          $('#dispnone div').click(function(){
+            $('#dispnone').hide();
+          });
+        });
+      </script>
+    <?php } ?>
     <h1 class="h3 mb-3 font-weight-normal text-light">Please Fill out the Form</h1>
     <div class="form-group">
       <input type="text" class="form-control" placeholder="First Name" name="firstname" autofocus>

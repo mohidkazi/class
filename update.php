@@ -65,24 +65,31 @@ if (isset($_POST['ss-submit'])) {
 	}
 }
 
+//update admission table
+if (isset($_POST['adm-submit'])) {
+	$firstname = secure($_POST['firstname']);
+	$lastname = secure($_POST['lastname']);
+	$batchname = secure($_POST['batch_name']);
+	$fees = secure($_POST['fees']);
+	$date = secure($_POST['date']);
+	$status = secure($_POST['status']);
+	$id = secure($_GET['admid']);
 
-// update admission table
-if(isset($_POST['adm-submit'])){
-$sid = secure($_POST['sid']);
-$bid = secure($_POST['bid']);
-$fees = secure($_POST['fees']);
-$date = secure($_POST['date']);
-$status = secure($_POST['status']);
-$id = secure($_GET['admid']);
+	$str1 = "SELECT S_ID FROM `student` WHERE S_fname='$firstname' AND S_lname='$lastname'";
+	$tmp1 = $sql->query($str1);
 
-$string = "UPDATE `admission` SET `A_S_ID`='$sid',`A_B_ID`='$bid',`A_fees`='$fees',`A_date`='$date',`A_status`='$status' WHERE `A_ID`=$id";
-$temp = $sql->query($string);
-if($temp){
-	header("location:admission.php?update-success");
-}
-else{
-	header("location:admission.php?update-failed");
-}
+	$str2 = "SELECT B_ID FROM `batch` WHERE B_name='$batchname'";
+	$tmp2 = $sql->query($str2);
+	if($demo1 = $tmp1->fetch_row() AND $demo2 = $tmp2->fetch_row()){
+		$string = "UPDATE `admission` SET `A_S_ID`=$demo1[0],`A_B_ID`=$demo2[0],`A_fees`='$fees',`A_date`='$date',`A_status`=$status WHERE `A_ID`=$id";
+		$temp = $sql->query($string);
+		if($temp){
+			header("location:admission.php?update-success");
+		}
+		else{
+			header("location:admission.php?update-failed");
+		}
+	}
 }
 ?>
 

@@ -12,20 +12,28 @@ require("config.php");
   <title>Login</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link href="css/login.css" rel="stylesheet">
+  <script src="js/jquery.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#dispnone div').click(function(){
+        $('#dispnone').hide();
+      });
+    });
+  </script>
 </head>
 <body class="text-center">
   <form class="form-signin" action="login.php" method="post">
     <img class="mb-4" src="image/admin.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <?php 
+    if (isset($_GET['incorrect'])) {
+      ?>
+      <div id="dispnone"><div class="card mb-2" style="background-color: #ff6666; color: red; border-color: red;text-align: center;"><div class="card-body">Username or Password Incorrect</div></div></div>
+    <?php } ?>
     <label for="un" class="sr-only">User Name</label>
     <input type="text" id="un" class="form-control" placeholder="User Name" name="username" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-    <?php
-    if(isset($_GET['incorrect'])){
-      echo "<div class='col-auto pass'>password incorrect</div>";
-    }
-    ?>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
   </form>

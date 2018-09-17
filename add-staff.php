@@ -3,6 +3,14 @@ require("config.php");
 ob_start();
 include("sidebar.php")
 ?>
+<?php if (isset($_GET['failed'])) {
+	?>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FF7F7F; color: #FA0404; border-color: red;text-align: center;"><div class="card-body">Failed To Insert Details</div></div></div>
+<?php } ?>
+<?php if (isset($_GET['success'])) { ?>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class="card-body">Details Inserted Successfully</div></div></div>
+<?php } ?>
+<!-- right side content -->
 <div class="container">
 	<form action="#" method="post">
 	<div class="row">
@@ -48,7 +56,7 @@ if (isset($_POST['ss-submit'])) {
 	$string = "INSERT INTO `supportstaff`(`SS_fname`, `SS_lname`, `SS_contact`, `SS_email`, `SS_address`, `SS_DOJ`) VALUES ('$firstname','$lastname','$contact','$email','$address','$doj')";
 	$temp = $sql->query($string);
 	if($temp){
-		header("location:add-staff.php");
+		header("location:add-staff.php?success");
 	}
 	else{
 		echo "<script>alert('insert staff failed');</script>";

@@ -3,6 +3,13 @@ require("config.php");
 ob_start();
 include("sidebar.php");
 ?>
+<?php if (isset($_GET['failed'])) {
+	?>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FF7F7F; color: #FA0404; border-color: red;text-align: center;"><div class="card-body">Failed To Add Batch</div></div></div>
+<?php } ?>
+<?php if (isset($_GET['success'])) { ?>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class="card-body">Batch Added Successfully</div></div></div>
+<?php } ?>
 <!-- add new batch -->
 <div class="container">
 	<form action="add-batch.php" method="post">
@@ -58,10 +65,10 @@ if(isset($_POST['add-batch-submit'])){
 	$string = "INSERT INTO `batch`(`B_name`, `B_venue`, `B_fees`, `B_F_ID`, `B_startdate`, `B_enddate`, `B_duration`, `B_status`) VALUES ('$name','$venue','$fees','$fid','$startdate','$enddate','$duration','$status')";
 	$temp = $sql->query($string);
 	if($temp){
-		echo "<div>insert successful</div>";
+		header("localtion:add-batch.php?success");
 	}
 	else{
-		echo "<scrip>alert('insert failed');</script>";
+		header("location:add-batch.php?failed");
 	}
 }
 ?>
