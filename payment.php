@@ -49,7 +49,6 @@ if (isset($_GET['incorrect'])) {
 						<th>Roll No</th>
 						<th>Full Name</th>
 						<th>batch name</th>
-						<th>Discount</th>
 						<th>Batch Fees</th>
 						<th>Amount Paid</th>
 						<th>Amount Remaining</th>
@@ -58,34 +57,37 @@ if (isset($_GET['incorrect'])) {
 						<th>Receipt</th>
 					</tr>
 				</thead>
-				<?php 
-				$string1 = "SELECT batch.B_name,admission.A_fees,student.S_Roll,student.S_fname,student.S_lname FROM ((`admission` INNER JOIN `batch` ON batch.B_ID=admission.A_B_ID) INNER JOIN `student` ON student.S_ID=admission.A_S_ID)";
-				$temp1 = $sql->query($string1);
+				<tbody>
+					<?php 
+					$string = "SELECT batch.B_name , admission.A_fees , student.S_Roll , student.S_fname , student.S_lname  , feepayment.Fee_ID , feepayment.Fee_amount , feepayment.Fee_amt_rem , feepayment.Fee_date
+					FROM feepayment
+						INNER JOIN admission
+							ON admission.A_ID=feepayment.Fee_A_ID
+								INNER JOIN student
+									ON student.S_ID=admission.A_S_ID
+										INNER JOIN batch
+											ON batch.B_ID=admission.A_B_ID";
+					$temp = $sql->query($string);
 
-				$string = "SELECT * FROM `feepayment`";
-				$temp = $sql->query($string);
-
-				while($demo = $temp->fetch_row() AND $demo1 = $temp1->fetch_row()){
-					?>
-					<tbody>
+					while($demo = $temp->fetch_row()){
+						?>
 						<tr>
-							<td><?php echo $demo[0]; ?></td>
-							<td><?php echo $demo1[2]; ?></td>
-							<td><?php echo $demo1[3]." ".$demo1[4]; ?></td>
-							<td><?php echo $demo1[0]; ?></td>
 							<td><?php echo $demo[5]; ?></td>
-							<td><?php echo $demo1[1]; ?></td>
 							<td><?php echo $demo[2]; ?></td>
-							<td><?php echo $demo[3]; ?></td>
-							<td><?php echo $demo[4]; ?></td>
+							<td><?php echo $demo[3]." ".$demo[4]; ?></td>
+							<td><?php echo $demo[0]; ?></td>
+							<td><?php echo $demo[1]; ?></td>
+							<td><?php echo $demo[6]; ?></td>
+							<td><?php echo $demo[7]; ?></td>
+							<td><?php echo $demo[8]; ?></td>
 							<td>
-								<a href="delete.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-trash-alt text-danger"></i></a>
+								<a href="delete.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-trash-alt text-danger"></i></a>&nbsp
 								<a href="edit.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-user-edit text-primary"></i></a>
 							</td>
 							<td></td>
 						</tr>
-					</tbody>
-				<?php } ?>
+					<?php } ?>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -129,28 +131,31 @@ if (isset($_POST['payment-submit'])) {
 	$payment = secure($_POST['payment']);
 	$date = secure($_POST['date']);
 
-	$string = "SELECT admission.A_ID , batch.B_fees , admission.A_fees FROM ((`admission` INNER JOIN `batch` ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID) INNER JOIN `student` ON student.S_fname='$firstname' AND student.S_lname='$lastname' AND student.S_ID=admission.A_S_ID)";
+	$string = "SELECT admission.A_ID , admission.A_fees , feepayment.Fee_amt_rem
+		FROM feepayment
+			INNER JOIN admission
+				ON admission.A_ID=feepayment.Fee_A_ID
+					INNER JOIN student
+						ON student.S_fname='$firstname' AND
+							student.S_lname='$lastname' AND student.S_ID=admission.A_S_ID
+								INNER JOIN batch
+									ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID";
 	$temp = $sql->query($string);
 	if ($demo = $temp->fetch_row()) {
-		$s = "SELECT Fee_amt_rem FROM `feepayment`";
-		$t = $sql->query($s);
-		if($d = $t->fetch_row()){
-			$aid = $demo[0];
-			$discount = $demo[1]-$demo[2];
-			$remaining = $demo[2]-($payment+$d[0]);
-			if ($remaining>=0) {
-				$string1 = "INSERT INTO `feepayment`(`Fee_A_ID`,`Fee_amount`,`Fee_amt_rem`,`Fee_date`,`Fee_discount`) VALUES ('$aid','$payment','$remaining','$date','$discount')";
-				$temp1 = $sql->query($string1);
-				if ($temp1) {
-					header("location:payment.php?added");
-				}
-				else{
-					header("location:payment.php?not-added");
-				}
+		$aid = $demo[0];
+		$remaining = $demo[2]-($payment+$demo[3]);
+		if ($remaining>=0) {
+			$string1 = "INSERT INTO `feepayment`(`Fee_A_ID`,`Fee_amount`,`Fee_amt_rem`,`Fee_date`) VALUES ('$aid','$payment','$remaining','$date')";
+			$temp1 = $sql->query($string1);
+			if ($temp1) {
+				header("location:payment.php?added");
 			}
 			else{
-				header("location:payment.php?incorrect");
+				header("location:payment.php?not-added");
 			}
+		}
+		else{
+			header("location:payment.php?incorrect");
 		}
 	}
 }
