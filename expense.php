@@ -63,7 +63,7 @@ if (isset($_GET['update-failed'])) {
 										</button>
 									</div>
 									<div class="modal-body">
-										Are you sure you want to delete Expense Table?
+										Are you sure you want to delete Expense <?php  ?>?
 									</div>
 									<div class="modal-footer ">
 										<button type="button" class="btn btn-light" data-dismiss="modal">

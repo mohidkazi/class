@@ -43,7 +43,7 @@ require("config.php");
 if(isset($_POST['submit'])){
   $username = secure($_POST['username']);
   $password = secure($_POST['password']);
-  $str="SELECT * FROM `admin` WHERE `Admin_fname`='$username' OR `Admin_email`='$username' AND `Admin_password`='$password' AND `Admin_designation`='owner'";
+  $str="SELECT * FROM `admin` WHERE `Admin_fname`='$username' OR `Admin_email`='$username' AND `Admin_password`='$password' AND `Admin_designation`='owner' AND D_flag=0";
   $temp=$sql->query($str);
   if($row=$temp->fetch_row()){
     $_SESSION['lid'] = $row[0];

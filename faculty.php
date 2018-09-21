@@ -18,7 +18,6 @@ if (isset($_GET['update-failed'])) {
 	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-3 mx-auto" style="background-color: #ff6666; color: red; border-color: red;text-align: center;"><div class="card-body">Update Failed</div></div></div>
 <?php } ?>
 <!-- page content on right side -->
-
 <div class="table-responsive">
 	<table class="table display" id="datatable">
 		<thead class="">
@@ -39,11 +38,12 @@ if (isset($_GET['update-failed'])) {
 		<?php 
 		$string = "SELECT * FROM `faculty` WHERE D_flag=0";
 		$temp = $sql->query($string);
+		$i=1;
 		while($demo=$temp->fetch_row()){
 			?>
 			<tbody>
 				<tr>
-					<td><?php echo $demo[0]; ?></td>
+					<td><?php echo $i; ?></td>
 					<td><?php echo "$demo[1] $demo[2]"; ?></td>
 					<td><?php echo $demo[3]; ?></td>
 					<td><?php echo $demo[4]; ?></td>
@@ -85,7 +85,8 @@ if (isset($_GET['update-failed'])) {
 				</td>
 			</tr>
 		</tbody>
-		<?php 
+		<?php 	
+		$i++;
 	} ?>
 </table>
 </div>
