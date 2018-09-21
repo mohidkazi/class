@@ -11,12 +11,18 @@
   <link href="bootstrap.min.css" rel="stylesheet">
   <link href="student.css" rel="stylesheet">
   <script src="../js/jquery.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+  <style>
+  .fa-10x{
+    font-size:3.5em;
+  }
+</style>
 </head>
 <body class="text-center bg-info">
   <form class="form-signin" action="#" method="post">
-    <!-- <i class="fas fa-trash-alt text-primary"></i> -->
-    <img class="mb-4" src="admin.png" alt="" width="70" height="70" style="text-shadow:2px 10px 50px 0 rgb(0,0,0,1);">
-    <?php if (isset($_GET['registered'])) {
+    <i class="fas fa-user-graduate fa-10x text-light mb-2"></i>
+        <?php if (isset($_GET['registered'])) {
       ?>
       <div id="dispnone"><div class="card mb-2" style="background-color: white; color: grey; text-align: center;"><div class="card-body">Thank You for Registering</div></div></div>
       <script>

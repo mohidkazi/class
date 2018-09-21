@@ -177,6 +177,12 @@ span {
         background-color: #183755;
         color: white;
     }
+    .btn-blue-1:hover{
+        background-color: #17497a;
+    }
+    .text-blue{
+        color: #183755;
+    }
     .btn-darkgrey{
         background-color: darkslategrey !important;
         color: white !important;

@@ -1,0 +1,15 @@
+SELECT following
+FROM   friends
+       INNER JOIN family ON friends.following=family.following
+       INNER JOIN following ON friends.following=following.following
+       INNER JOIN acquaintances ON friends.following=acquaintances.following
+WHERE  follower='id'
+//
+SELECT batch.B_name , admission.A_fees , student.S_Roll , student.S_fname , student.S_lname  , feepayment.Fee_ID , feepayment.Fee_amount , feepayment.Fee_amt_rem , feepayment.Fee_date
+					FROM feepayment
+						INNER JOIN admission
+							ON admission.A_ID=feepayment.Fee_A_ID
+								INNER JOIN student
+									ON student.S_ID=admission.A_S_ID
+										INNER JOIN batch
+											ON batch.B_ID=admission.A_B_ID

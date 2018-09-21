@@ -24,7 +24,7 @@ if (isset($_GET['update-failed'])) {
 				<th>Name</th>
 				<th>Venue</th>
 				<th>Fees</th>
-				<th>Fid</th>
+				<th>Faculty</th>
 				<th>Startdate</th>
 				<th>Enddate</th>
 				<th>Duration</th>
@@ -33,28 +33,145 @@ if (isset($_GET['update-failed'])) {
 			</tr>
 		</thead>
 		<?php  
-		$string = "SELECT * FROM `batch`";
+		$string = "SELECT * FROM `batch` WHERE D_flag=0 ORDER BY B_startdate DESC";
 		$temp = $sql->query($string);
+		$i=1;
 		while($demo = $temp->fetch_row()){
 			?>
 			<tbody>
 				<tr>
-					<td><?php echo $demo[0]; ?></td>
+					<td><?php echo $i; ?></td>
 					<td><?php echo $demo[1]; ?></td>
 					<td><?php echo $demo[2]; ?></td>
 					<td><?php echo $demo[3]; ?></td>
-					<td><?php echo $demo[4]; ?></td>
+					<td><?php 
+					$str = "SELECT * FROM `faculty` WHERE F_ID=$demo[4] AND D_flag=0";
+					$tmp = $sql->query($str);
+					if ($dem = $tmp->fetch_row()) {
+						echo "$dem[1] $dem[2]";
+					} ?></td>
 					<td><?php echo $demo[5]; ?></td>
 					<td><?php echo $demo[6]; ?></td>
 					<td><?php echo $demo[7]; ?></td>
-					<td><?php echo $demo[8]; ?></td>
-					<td><a href='delete.php?bid=<?php echo $demo[0]; ?>'><i class="fas fa-trash-alt text-danger"></i></a>&nbsp&nbsp&nbsp&nbsp&nbsp
-						<a href='edit.php?bid=<?php echo $demo[0];?>'><i class="fas fa-user-edit text-primary"></i></a></td>
-					</td>
-				</tr>
-			</tbody>
-		<?php } ?>
-	</table>
+					<td><?php 
+					if ($demo[8]) {
+						echo "Ongoing";
+					}
+					else{
+						echo "Completed";
+					} ?></td>
+					<td>
+						<a data-toggle="modal" data-target="#deletebtn" title="delete">
+							<i class="fas fa-trash-alt text-danger"></i>
+						</a>&nbsp
+						<a href='edit.php?bid=<?php echo $demo[0];?>' title="edit">
+							<i class="fas fa-user-edit text-dark"></i>
+						</a>&nbsp
+						<a data-toggle="modal" data-target="#feesmodal" title="fees">
+							<i class="fas fa-money-bill-alt text-blue"></i>
+						</a>
+						<!-------------------------------------------------------------------------------->
+						<!-- Modal for Fees-->
+						<div class="modal fade bd-example-modal-lg" id="feesmodal" tabindex="-1" role="dialog" aria-labelledby="feemodal" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="feemodal">Modal title</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<table class="display table" id="datatable1">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Roll No</th>
+													<th>Full Name</th>
+													<th>batch name</th>
+													<th>Batch Fees</th>
+													<th>Amount Paid</th>
+													<th>Amount Remaining</th>
+													<th>Date of Payment</th>
+													<th>Edit</th>
+													<th>Receipt</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php 
+												$string1 = "SELECT batch.B_name , admission.A_fees , student.S_Roll , student.S_fname , student.S_lname  , feepayment.Fee_ID , feepayment.Fee_amount , feepayment.Fee_amt_rem , feepayment.Fee_date
+												FROM feepayment
+												INNER JOIN admission
+												ON admission.A_ID=feepayment.Fee_A_ID AND admission.D_flag=0
+												INNER JOIN student
+												ON student.S_ID=admission.A_S_ID AND student.D_flag=0
+												INNER JOIN batch
+												ON batch.B_ID=$demo[0] AND batch.D_flag=0";
+												$temp1 = $sql->query($string1);
+												$j=1;
+												while($demo1 = $temp1->fetch_row()){
+													?>
+													<tr>
+														<td><?php echo $j; ?></td>
+														<td><?php echo $demo1[2]; ?></td>
+														<td><?php echo $demo1[3]." ".$demo1[4]; ?></td>
+														<td><?php echo $demo1[0]; ?></td>
+														<td><?php echo $demo1[1]; ?></td>
+														<td><?php echo $demo1[6]; ?></td>
+														<td><?php echo $demo1[7]; ?></td>
+														<td><?php echo $demo1[8]; ?></td>
+														<td>
+															<a href="delete.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-trash-alt text-danger"></i></a>
+															<a href="edit.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-user-edit text-primary"></i></a>
+														</td>
+														<td></td>
+													</tr>
+													<?php 
+													$j++;
+												} ?>
+											</tbody>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-blue btn-blue-1">Save changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--============================================================================-->
+						<!-- Modal for delete-->
+						<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content bg-dark text-light">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Delete Operation</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										Are you sure you want to delete Branch <?php echo $demo[1]; ?> ?
+									</div>
+									<div class="modal-footer ">
+										<button type="button" class="btn btn-light" data-dismiss="modal">
+											Close
+										</button>
+										<a href='delete.php?bid=<?php echo $demo[0]; ?>' title="delete"><button type="button" class="btn btn-danger">Delete
+										</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!------------------------------------------------------------------------------------>
+				</td>
+			</tr>
+		</tbody>
+		<?php 
+		$i++;
+	} ?>
+</table>
 </div>
 
 </div>
@@ -63,7 +180,8 @@ if (isset($_GET['update-failed'])) {
 	$(document).ready(function(e){
 		$('#batch , #dbatch').addClass('active');
 
-		$('#datatable').DataTable();
+		$('#datatable , #datatable1').DataTable();
+
 	});
 
 </script>

@@ -84,7 +84,7 @@ if (isset($_POST['adm-submit'])) {
 </div>
 <script type="text/javascript">
 	$(document).ready(function(e){
-		$('#addadmission').addClass('active');
+		$('#addadmission , #dadmission').addClass('active');
 	});
 
 </script>

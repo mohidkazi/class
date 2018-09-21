@@ -6,7 +6,7 @@ include("sidebar.php");
 <?php 
 if (isset($_GET['update-success'])) {
 	?>
-	<div class="container" id="dispnone"><div class='card mb-2 col-sm-5 col-lg-4 mx-auto' style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class='card-body'>Payment Table Updated</div></div></div>
+	<div class="container" id="dispnone"><div class='card mb-2 col-sm-5 col-lg-3   mx-auto' style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class='card-body'>Payment Table Updated</div></div></div>
 <?php } ?>
 <?php if (isset($_GET['del-success'])) { ?>
 	<div class="container" id="dispnone"><div class='card mb-2 col-sm-5 col-lg-3 mx-auto' style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class='card-body'>Row Deleted</div></div></div>
@@ -14,7 +14,7 @@ if (isset($_GET['update-success'])) {
 <?php 
 if (isset($_GET['update-failed'])) {
 	?>
-	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-3 mx-auto" style="background-color: #ff6666; color: red; border-color: red;text-align: center;"><div class="card-body">Update Failed</div></div></div>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-3 mx-auto" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">Update Failed</div></div></div>
 <?php } ?>
 <?php 
 if (isset($_GET['added'])) {
@@ -24,12 +24,12 @@ if (isset($_GET['added'])) {
 <?php 
 if (isset($_GET['not-added'])) {
 	?>
-	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-4 mx-auto" style="background-color: #ff6666; color: red; border-color: red;text-align: center;"><div class="card-body">Payment Details Could Not be Added</div></div></div>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-4 mx-auto" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">Payment Details Could Not be Added</div></div></div>
 <?php } ?>
 <?php 
 if (isset($_GET['incorrect'])) {
 	?>
-	<div class="container" id="dispnone"><div class="card mb-2 col-sm-4 mx-auto" style="background-color: #ff6666; color: red; border-color: red;text-align: center;"><div class="card-body">Remaining Amount cannot be less than <strong>0</strong></div></div></div>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-3 mx-auto" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">Error</div></div></div>
 <?php } ?>
 <!-- page content on right side -->
 <!-- Nav tabs -->
@@ -60,13 +60,13 @@ if (isset($_GET['incorrect'])) {
 				<tbody>
 					<?php 
 					$string = "SELECT batch.B_name , admission.A_fees , student.S_Roll , student.S_fname , student.S_lname  , feepayment.Fee_ID , feepayment.Fee_amount , feepayment.Fee_amt_rem , feepayment.Fee_date
-					FROM feepayment
-						INNER JOIN admission
-							ON admission.A_ID=feepayment.Fee_A_ID
-								INNER JOIN student
-									ON student.S_ID=admission.A_S_ID
-										INNER JOIN batch
-											ON batch.B_ID=admission.A_B_ID";
+					 FROM feepayment
+					  INNER JOIN admission
+					   ON admission.A_ID=feepayment.Fee_A_ID
+					    INNER JOIN student
+						 ON student.S_ID=admission.A_S_ID
+						  INNER JOIN batch
+						   ON batch.B_ID=admission.A_B_ID";
 					$temp = $sql->query($string);
 
 					while($demo = $temp->fetch_row()){
@@ -81,8 +81,32 @@ if (isset($_GET['incorrect'])) {
 							<td><?php echo $demo[7]; ?></td>
 							<td><?php echo $demo[8]; ?></td>
 							<td>
-								<a href="delete.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-trash-alt text-danger"></i></a>&nbsp
+								<a data-toggle="modal" data-target="#deletebtn" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>&nbsp
 								<a href="edit.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-user-edit text-primary"></i></a>
+								<!-- Modal for delete-->
+							<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content bg-dark text-light">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Delete Operation</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											Are you sure you want to delete Branch <?php echo $demo[1]; ?> ?
+										</div>
+										<div class="modal-footer ">
+											<button type="button" class="btn btn-light" data-dismiss="modal">
+												Close
+											</button>
+											<a href="delete.php?pid=<?php echo $demo[0]; ?>" title="delete"><button type="button" class="btn btn-danger">Delete
+											</button>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
 							</td>
 							<td></td>
 						</tr>
@@ -131,32 +155,29 @@ if (isset($_POST['payment-submit'])) {
 	$payment = secure($_POST['payment']);
 	$date = secure($_POST['date']);
 
-	$string = "SELECT admission.A_ID , admission.A_fees , feepayment.Fee_amt_rem
-		FROM feepayment
-			INNER JOIN admission
-				ON admission.A_ID=feepayment.Fee_A_ID
-					INNER JOIN student
-						ON student.S_fname='$firstname' AND
-							student.S_lname='$lastname' AND student.S_ID=admission.A_S_ID
-								INNER JOIN batch
-									ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID";
+	$string = "SELECT admission.A_ID , admission.A_fees , feepayment.Fee_amt_rem , feepayment.Fee_amount
+	 FROM feepayment
+	  INNER JOIN admission
+	   ON admission.A_ID=feepayment.Fee_A_ID
+	    INNER JOIN student
+	     ON student.S_fname='$firstname' AND
+		  student.S_lname='$lastname' AND student.S_ID=admission.A_S_ID
+		   INNER JOIN batch
+			ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID";
 	$temp = $sql->query($string);
 	if ($demo = $temp->fetch_row()) {
 		$aid = $demo[0];
-		$remaining = $demo[2]-($payment+$demo[3]);
-		if ($remaining>=0) {
-			$string1 = "INSERT INTO `feepayment`(`Fee_A_ID`,`Fee_amount`,`Fee_amt_rem`,`Fee_date`) VALUES ('$aid','$payment','$remaining','$date')";
-			$temp1 = $sql->query($string1);
-			if ($temp1) {
-				header("location:payment.php?added");
-			}
-			else{
-				header("location:payment.php?not-added");
-			}
+		$string1 = "INSERT INTO `feepayment`(`Fee_A_ID`,`Fee_amount`,`Fee_amt_rem`,`Fee_date`) VALUES ('$aid','$payment','$remaining','$date')";
+		$temp1 = $sql->query($string1);
+		if ($temp1) {
+			header("location:payment.php?added");
 		}
 		else{
-			header("location:payment.php?incorrect");
+			header("location:payment.php?not-added");
 		}
+	}
+	else{
+		header("location:payment.php?incorrect");
 	}
 }
 ?>

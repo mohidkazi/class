@@ -21,47 +21,73 @@ if (isset($_GET['update-failed'])) {
 
 <div class="table-responsive">
 	<table class="table display" id="datatable">
-	<thead class="">
-		<tr>
-			<th scope="col">#</th>
-			<th scope="col">Firstname</th>
-			<th scope="col">Lastname</th>
-			<th scope="col">Contact</th>
-			<th scope="col">Email</th>
-			<th scope="col">Address</th>
-			<th scope="col">Qualification</th>
-			<th scope="col">Experience</th>
-			<th scope="col">Picture</th>
-			<th scope="col">About</th>
-			<th scope="col">Date of Joining</th>
-			<th scope="col">Operations</th>
-		</tr>
-	</thead>
-	<?php 
-	$string = "SELECT * FROM `faculty`";
-	$temp = $sql->query($string);
-	while($demo=$temp->fetch_row()){
-		?>
-		<tbody>
+		<thead class="">
 			<tr>
-				<td><?php echo $demo[0]; ?></td>
-				<td><?php echo $demo[1]; ?></td>
-				<td><?php echo $demo[2]; ?></td>
-				<td><?php echo $demo[3]; ?></td>
-				<td><?php echo $demo[4]; ?></td>
-				<td><?php echo $demo[5]; ?></td>
-				<td><?php echo $demo[6]; ?></td>
-				<td><?php echo $demo[7]; ?></td>
-				<td><?php echo $demo[8]; ?></td>
-				<td><?php echo $demo[9]; ?></td>
-				<td><?php echo $demo[10]; ?></td>
-				<td><a href='delete.php?fid=<?php echo $demo[0]; ?>'><i class="fas fa-trash-alt text-danger"></i></a>&nbsp&nbsp&nbsp&nbsp&nbsp
-					<a href='edit.php?fid=<?php echo $demo[0];?>'><i class="fas fa-user-edit text-primary"></i></a></td>
-				</tr>
-			</tbody>
-			<?php 
-		} ?>
-	</table>
+				<th scope="col">#</th>
+				<th scope="col">Full Name</th>
+				<th scope="col">Contact</th>
+				<th scope="col">Email</th>
+				<th scope="col">Address</th>
+				<th scope="col">Qualification</th>
+				<th scope="col">Experience</th>
+				<th scope="col">Picture</th>
+				<th scope="col">About</th>
+				<th scope="col">Date of Joining</th>
+				<th scope="col">Operations</th>
+			</tr>
+		</thead>
+		<?php 
+		$string = "SELECT * FROM `faculty` WHERE D_flag=0";
+		$temp = $sql->query($string);
+		while($demo=$temp->fetch_row()){
+			?>
+			<tbody>
+				<tr>
+					<td><?php echo $demo[0]; ?></td>
+					<td><?php echo "$demo[1] $demo[2]"; ?></td>
+					<td><?php echo $demo[3]; ?></td>
+					<td><?php echo $demo[4]; ?></td>
+					<td><?php echo $demo[5]; ?></td>
+					<td><?php echo $demo[6]; ?></td>
+					<td><?php echo $demo[7]; ?></td>
+					<td><?php echo $demo[8]; ?></td>
+					<td><?php echo $demo[9]; ?></td>
+					<td><?php echo $demo[10]; ?></td>
+					<td>
+						<a data-toggle="modal" data-target="#deletebtn" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>&nbsp&nbsp&nbsp&nbsp&nbsp
+						<a href='edit.php?fid=<?php echo $demo[0];?>' title="edit"><i class="fas fa-user-edit text-primary"></i></a>
+						<!------------------------------------------------------------------------------------>
+						<!-- Modal for delete-->
+						<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content bg-dark text-light">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Delete Operation</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										Are you sure you want to delete Faculty <?php  ?> ?
+									</div>
+									<div class="modal-footer ">
+										<button type="button" class="btn btn-light" data-dismiss="modal">
+											Close
+										</button>
+										<a href='delete.php?fid=<?php echo $demo[0]; ?>' title='delete'><button type="button" class="btn btn-danger">Delete
+										</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!------------------------------------------------------------------------------------>
+				</td>
+			</tr>
+		</tbody>
+		<?php 
+	} ?>
+</table>
 </div>
 
 </div>
