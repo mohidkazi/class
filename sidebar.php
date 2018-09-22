@@ -23,7 +23,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <!------------------------------------------------------------------------------------------------------------------->
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <!-- jQuery CDN -->
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- Popper.JS -->
@@ -61,7 +61,7 @@
             </div>
             <ul class="list-unstyled components">
                 <li>
-                    <a href="landing.php" id="dashboard">
+                    <a href="index.php" id="dashboard">
                         <i class="fas fa-chart-line"></i>
                         Dashboard
                     </a>

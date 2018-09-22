@@ -64,10 +64,10 @@ if (isset($_GET['update-failed'])) {
 					}
 					?></td>
 					<td>
-						<a data-toggle="modal" data-target="#deletebtn" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>&nbsp&nbsp&nbsp&nbsp&nbsp 
+						<a data-toggle="modal" data-target="#deletebtn<?php echo $demo[0]; ?>" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>&nbsp
 						<a href="edit.php?admid=<?php echo $demo[0]; ?>"><i class="fas fa-user-edit text-primary"></i></a>
 						<!-- Modal for delete-->
-						<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="deletebtn<?php echo $demo[0]; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content bg-dark text-light">
 									<div class="modal-header">
@@ -77,7 +77,7 @@ if (isset($_GET['update-failed'])) {
 										</button>
 									</div>
 									<div class="modal-body">
-										Are you sure you want to delete Admission Table <?php  ?> ?
+										Are you sure you want to delete Admission Table ?
 									</div>
 									<div class="modal-footer ">
 										<button type="button" class="btn btn-light" data-dismiss="modal">

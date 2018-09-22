@@ -57,7 +57,7 @@ if(isset($_POST['submit'])){
 if (isset($_POST['submit'])) {
   $username = secure($_POST['username']);
   $password = secure($_POST['password']);
-  $str="SELECT * FROM `admin` WHERE `Admin_fnameme`='$username' OR `Admin_email`='$username' AND `Admin_password`='$password' AND `Admin_designation`='staff'";
+  $str="SELECT * FROM `admin` WHERE `Admin_fnameme`='$username' OR `Admin_email`='$username' AND `Admin_password`='$password' AND `Admin_designation`='staff' AND D_flag=0";
   $temp=$sql->query($str);
   if ($demo=$temp->fetch_row()) {
     $_SESSION['lid'] = $demo[0];

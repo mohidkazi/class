@@ -1,6 +1,6 @@
 <?php
-require("config.php");
 ob_start();
+require("config.php");
 include("sidebar.php");
 ?>
 <?php 
@@ -32,13 +32,13 @@ if (isset($_GET['update-failed'])) {
 				<th>Operation</th>
 			</tr>
 		</thead>
-		<?php  
-		$string = "SELECT * FROM `batch` WHERE D_flag=0 ORDER BY B_startdate DESC";
-		$temp = $sql->query($string);
-		$i=1;
-		while($demo = $temp->fetch_row()){
-			?>
-			<tbody>
+		<tbody>
+			<?php  
+			$string = "SELECT * FROM `batch` WHERE D_flag=0 ORDER BY B_startdate DESC";
+			$temp = $sql->query($string);
+			$i=1;
+			while($demo = $temp->fetch_row()){
+				?>
 				<tr>
 					<td><?php echo $i; ?></td>
 					<td><?php echo $demo[1]; ?></td>
@@ -61,18 +61,18 @@ if (isset($_GET['update-failed'])) {
 						echo "Completed";
 					} ?></td>
 					<td>
-						<a data-toggle="modal" data-target="#deletebtn" title="delete">
+						<a data-toggle="modal" data-target="#deletebtn<?php echo $demo[0]; ?>" title="delete">
 							<i class="fas fa-trash-alt text-danger"></i>
 						</a>&nbsp
 						<a href='edit.php?bid=<?php echo $demo[0];?>' title="edit">
 							<i class="fas fa-user-edit text-dark"></i>
 						</a>&nbsp
-						<a data-toggle="modal" data-target="#feesmodal" title="fees">
+						<a data-toggle="modal" data-target="#feesmodal<?php echo $demo[0]; ?>" title="fees">
 							<i class="fas fa-money-bill-alt text-blue"></i>
 						</a>
 						<!-------------------------------------------------------------------------------->
 						<!-- Modal for Fees-->
-						<div class="modal fade bd-example-modal-lg" id="feesmodal" tabindex="-1" role="dialog" aria-labelledby="feemodal" aria-hidden="true">
+						<div class="modal fade bd-example-modal-lg" id="feesmodal<?php echo $demo[0]; ?>" tabindex="-1" role="dialog" aria-labelledby="feemodal" aria-hidden="true">
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -91,7 +91,6 @@ if (isset($_GET['update-failed'])) {
 													<th>batch name</th>
 													<th>Batch Fees</th>
 													<th>Amount Paid</th>
-													<th>Amount Remaining</th>
 													<th>Date of Payment</th>
 													<th>Edit</th>
 													<th>Receipt</th>
@@ -99,14 +98,14 @@ if (isset($_GET['update-failed'])) {
 											</thead>
 											<tbody>
 												<?php 
-												$string1 = "SELECT batch.B_name , admission.A_fees , student.S_Roll , student.S_fname , student.S_lname  , feepayment.Fee_ID , feepayment.Fee_amount , feepayment.Fee_amt_rem , feepayment.Fee_date
+												$string1 = "SELECT batch.B_name , admission.A_fees , student.S_Roll , student.S_fname , student.S_lname  , feepayment.Fee_ID , feepayment.Fee_amount , feepayment.Fee_date
 												FROM feepayment
 												INNER JOIN admission
-												ON admission.A_ID=feepayment.Fee_A_ID AND admission.D_flag=0
+												ON admission.A_ID=feepayment.Fee_A_ID AND admission.A_B_ID=$demo[0] AND admission.D_flag=0
 												INNER JOIN student
 												ON student.S_ID=admission.A_S_ID AND student.D_flag=0
 												INNER JOIN batch
-												ON batch.B_ID=$demo[0] AND batch.D_flag=0";
+												ON batch.B_ID=admission.A_B_ID AND batch.D_flag=0";
 												$temp1 = $sql->query($string1);
 												$j=1;
 												while($demo1 = $temp1->fetch_row()){
@@ -119,10 +118,9 @@ if (isset($_GET['update-failed'])) {
 														<td><?php echo $demo1[1]; ?></td>
 														<td><?php echo $demo1[6]; ?></td>
 														<td><?php echo $demo1[7]; ?></td>
-														<td><?php echo $demo1[8]; ?></td>
 														<td>
-															<a href="delete.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-trash-alt text-danger"></i></a>
-															<a href="edit.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-user-edit text-primary"></i></a>
+															<a href="delete.php?pid=<?php echo $demo1[5]; ?>"><i class="fas fa-trash-alt text-danger"></i></a>
+															<a href="edit.php?pid=<?php echo $demo1[5]; ?>"><i class="fas fa-user-edit text-primary"></i></a>
 														</td>
 														<td></td>
 													</tr>
@@ -134,14 +132,14 @@ if (isset($_GET['update-failed'])) {
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-blue btn-blue-1">Save changes</button>
+										<!-- <button type="button" class="btn btn-blue btn-blue-1">Save changes</button> -->
 									</div>
 								</div>
 							</div>
 						</div>
 						<!--============================================================================-->
 						<!-- Modal for delete-->
-						<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="deletebtn<?php echo $demo[0]; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content bg-dark text-light">
 									<div class="modal-header">
@@ -167,10 +165,10 @@ if (isset($_GET['update-failed'])) {
 					<!------------------------------------------------------------------------------------>
 				</td>
 			</tr>
-		</tbody>
-		<?php 
-		$i++;
-	} ?>
+			<?php 
+			$i++;
+		} ?>
+	</tbody>
 </table>
 </div>
 

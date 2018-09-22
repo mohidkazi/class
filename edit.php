@@ -6,7 +6,7 @@ include("sidebar.php");
 <!-- edit and update for faculty only -->
 <?php if(isset($_GET['fid'])){
 	$id = secure($_GET['fid']);
-	$string = "SELECT * FROM `faculty` WHERE `F_ID`=$id";
+	$string = "SELECT * FROM `faculty` WHERE `F_ID`=$id AND D_flag=0";
 	$temp = $sql->query($string);
 	if($demo = $temp->fetch_row()){
 		?>
@@ -80,7 +80,7 @@ include("sidebar.php");
 	<?php 
 	if(isset($_GET['bid'])){
 		$id = secure($_GET['bid']);
-		$string = "SELECT * FROM `batch` WHERE `B_ID`=$id";
+		$string = "SELECT * FROM `batch` WHERE `B_ID`=$id AND D_flag=0";
 		$temp = $sql->query($string);
 		if($demo = $temp->fetch_row()){
 			?>
@@ -133,7 +133,7 @@ include("sidebar.php");
 	<?php 
 	if (isset($_GET['ssid'])) {
 		$id = secure($_GET['ssid']);
-		$string = "SELECT * FROM `supportstaff` WHERE `SS_ID`=$id";
+		$string = "SELECT * FROM `supportstaff` WHERE `SS_ID`=$id AND D_flag=0";
 		$temp = $sql->query($string);
 		if ($demo = $temp->fetch_row()) {
 			?>
@@ -179,7 +179,7 @@ include("sidebar.php");
 	if (isset($_GET['admid'])) {
 		$id = secure($_GET['admid']);
 		
-		$string = "SELECT * FROM `admission` WHERE `A_ID`=$id";
+		$string = "SELECT * FROM `admission` WHERE `A_ID`=$id AND D_flag=0";
 		$temp = $sql->query($string);
 		if ($demo = $temp->fetch_row()) {
 			$str1 = "SELECT * FROM `student` WHERE `S_ID`=$demo[1]";

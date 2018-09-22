@@ -58,9 +58,9 @@ if (isset($_POST['adm-submit'])) {
 	$status = secure($_POST['status']);
 	if ($status = 'Ongoing' OR $status = 'ongoing' OR $status = 'on' OR $status = 'started') {
 		$status = 1;
-		$str1 = "SELECT S_ID FROM student WHERE S_fname='$firstname' AND S_lname='$lastname'";
+		$str1 = "SELECT S_ID FROM student WHERE S_fname='$firstname' AND S_lname='$lastname' AND D_flag=0";
 		$temp1 = $sql->query($str1);
-		$str2 = "SELECT B_ID FROM batch WHERE B_name='$batch_name'";
+		$str2 = "SELECT B_ID FROM batch WHERE B_name='$batch_name' AND D_flag=0";
 		$temp2 = $sql->query($str2);
 		if ($demo2 = $temp2->fetch_row() AND $demo1 = $temp1->fetch_row()) {
 

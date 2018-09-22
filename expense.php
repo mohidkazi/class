@@ -34,7 +34,6 @@ if (isset($_GET['update-failed'])) {
 		$temp = $sql->query($string);
 		$i=1;
 		while ($demo = $temp->fetch_row()) {
-			$s=$demo[0];
 			?>
 			<tbody>
 				<tr>
@@ -48,12 +47,12 @@ if (isset($_GET['update-failed'])) {
 					<td><?php echo "$demo[2]"; ?></td>
 					<td><?php echo "$demo[4]"; ?></td>
 					<td>
-						<a data-toggle="modal" data-target="#deletebtn" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>
-						&nbsp&nbsp&nbsp&nbsp&nbsp
+						<a data-toggle="modal" data-target="#deletebtn<?php echo $demo[0]; ?>" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>
+						&nbsp
 						<a href="edit.php?eid=<?php echo $demo[0]; ?>"><i class="fas fa-user-edit text-primary"></i></a>
 						<!--------------------------------------------------------------------------------->
 						<!-- Modal for delete-->
-						<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="deletebtn<?php echo $demo[0]; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content bg-dark text-light">
 									<div class="modal-header">
@@ -63,13 +62,13 @@ if (isset($_GET['update-failed'])) {
 										</button>
 									</div>
 									<div class="modal-body">
-										Are you sure you want to delete Expense <?php  ?>?
+										Are you sure you want to delete Expense ?
 									</div>
 									<div class="modal-footer ">
 										<button type="button" class="btn btn-light" data-dismiss="modal">
 											Close
 										</button>
-										<a href="delete.php?eid=<?php echo $s; ?>"><button type="button" class="btn btn-danger">Delete
+										<a href="delete.php?eid=<?php echo $demo[0]; ?>"><button type="button" class="btn btn-danger">Delete
 										</button>
 									</a>
 								</div>

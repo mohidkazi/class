@@ -34,7 +34,7 @@ if (isset($_GET['incorrect'])) {
 <!-- page content on right side -->
 <!-- Nav tabs -->
 <nav>
-	<div class="nav nav-tabs" id="nav-tab" role="tablist" style="border-color: #183755;">
+	<div class="nav nav-tabs" id="nav-tab" role="tablist">
 		<a class="nav-item nav-link active col-sm-6" id="nav-home-tab" data-toggle="tab" href="#nav-show" role="tab" aria-controls="nav-home" aria-selected="true">Payment Table</a>
 		<a class="nav-item nav-link col-sm-6" id="nav-profile-tab" data-toggle="tab" href="#nav-add" role="tab" aria-controls="nav-profile" aria-selected="false">Add Payment Details</a>
 	</div>
@@ -79,12 +79,12 @@ if (isset($_GET['incorrect'])) {
 							<td><?php echo $demo[6]; ?></td>
 							<td><?php echo $demo[7]; ?></td>
 							<td>
-								<a data-toggle="modal" data-target="#deletebtn" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>&nbsp
-								<a href="edit.php?pid=<?php echo $demo[0]; ?>"><i class="fas fa-user-edit text-primary"></i></a>
+								<a data-toggle="modal" data-target="#deletebtn<?php echo $demo[5]; ?>" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>
+								<!-- <a href="edit.php?pid=<?php /*echo $demo[5]*/; ?>"><i class="fas fa-user-edit text-primary"></i></a> -->
 							</td>
 							<!---------------------------------------------------------------------------------->
 								<!-- Modal for delete-->
-							<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal fade" id="deletebtn<?php echo $demo[5]; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content bg-dark text-light">
 										<div class="modal-header">
@@ -94,7 +94,7 @@ if (isset($_GET['incorrect'])) {
 											</button>
 										</div>
 										<div class="modal-body">
-											Are you sure you want to delete Fee Payment <?php ?> ?
+											Are you sure you want to delete Fee Payment of <?php echo "$demo[3] $demo[4]"; ?> ?
 										</div>
 										<div class="modal-footer ">
 											<button type="button" class="btn btn-light" data-dismiss="modal">
@@ -122,7 +122,7 @@ if (isset($_GET['incorrect'])) {
 				<div class="row">
 					<div class="form-group col-sm-6">
 						<label for="stu">Contact / Roll No.<code>*</code></label>
-						<input type="text" class="form-control" id="stu"  placeholder="firstname" name="firstname">
+						<input type="text" class="form-control" id="stu"  placeholder="Contact / Roll No." name="crn">
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="bn">Batch<code>*</code></label>
@@ -146,7 +146,7 @@ if (isset($_GET['incorrect'])) {
 </div>
 <?php 
 if (isset($_POST['payment-submit'])) {
-	$firstname = secure($_POST['firstname']);
+	$crn = secure($_POST['crn']);
 	$batchname = secure($_POST['batchname']);
 	$payment = secure($_POST['payment']);
 	$date = secure($_POST['date']);
@@ -156,7 +156,7 @@ if (isset($_POST['payment-submit'])) {
 	  INNER JOIN admission
 	   ON admission.A_ID=feepayment.Fee_A_ID AND admission.D_flag=0
 	    INNER JOIN student
-	     ON student.S_fname='$firstname'
+	     ON student.S_Roll='$crn' OR student.S_contact='$crn'
 	      AND student.S_ID=admission.A_S_ID AND student.D_flag=0
 		   INNER JOIN batch
 			ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID AND batch.D_flag=0";

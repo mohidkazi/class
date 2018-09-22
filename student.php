@@ -35,7 +35,7 @@ if (isset($_GET['update-failed'])) {
 		</thead>
 		<tbody>
 			<?php 
-			$string = "SELECT * FROM `student`";
+			$string = "SELECT * FROM `student` WHERE D_flag=0";
 			$temp = $sql->query($string);
 			while ($demo = $temp->fetch_row()) {
 				?>
@@ -50,39 +50,40 @@ if (isset($_GET['update-failed'])) {
 					<td><?php echo $demo[9]; ?></td>
 					<td><?php echo $demo[10]; ?></td>
 					<td>
-						<a data-toggle="modal" data-target="#deletebtn" title="delete">
-							<i class="fas fa-user-edit text-primary"></i></a>
-							&nbsp&nbsp&nbsp&nbsp&nbsp<a href="delete.php?sid=<?php echo $demo[0]; ?>"><i class="fas fa-trash-alt text-danger"></i></a>
-							<!-- Modal for delete-->
-							<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content bg-dark text-light">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Delete Operation</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
+						<a data-toggle="modal" data-target="#deletebtn<?php echo $demo[0]; ?>" title="delete">
+							<i class="fas fa-trash-alt text-danger"></i></a>
+							&nbsp&nbsp&nbsp&nbsp&nbsp<a href="edit.php?sid=<?php echo $demo[0]; ?>">
+								<i class="fas fa-user-edit text-primary"></i></a>
+								<!-- Modal for delete-->
+								<div class="modal fade" id="deletebtn<?php echo $demo[0]; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content bg-dark text-light">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Delete Operation</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												Are you sure you want to delete Student <?php echo $demo[1]; ?> ?
+											</div>
+											<div class="modal-footer ">
+												<button type="button" class="btn btn-light" data-dismiss="modal">
+													Close
+												</button>
+												<a href="delete.php?sid=<?php echo $demo[0]; ?>" title="delete"><button type="button" class="btn btn-danger">Delete
+												</button>
+											</a>
 										</div>
-										<div class="modal-body">
-											Are you sure you want to delete Branch <?php echo $demo[1]; ?> ?
-										</div>
-										<div class="modal-footer ">
-											<button type="button" class="btn btn-light" data-dismiss="modal">
-												Close
-											</button>
-											<a href="edit.php?sid=<?php echo $demo[0]; ?>" title="delete"><button type="button" class="btn btn-danger">Delete
-											</button>
-										</a>
 									</div>
 								</div>
 							</div>
-						</div>
-					</td>
-				</tr>
-			<?php } ?>
-		</tbody>
-	</table>
-</div>
+						</td>
+					</tr>
+				<?php } ?>
+			</tbody>
+		</table>
+	</div>
 </div>
 </div>
 <script type="text/javascript">
