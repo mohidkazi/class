@@ -16,7 +16,7 @@ include("sidebar.php");
 		<div class="form-row">
 			<div class="form-group col-sm-6">
 				<label for="name">Name<code>*</code></label>
-				<input type="text" class="form-control" id="name"  placeholder="Name" name="name">
+				<input type="text" class="form-control" id="name"  placeholder="Batch Name" name="name">
 			</div>
 			<div class="form-group col-sm-6">
 				<label for="venue">Venue<code>*</code></label>
@@ -65,7 +65,7 @@ if(isset($_POST['add-batch-submit'])){
 	$string = "INSERT INTO `batch`(`B_name`, `B_venue`, `B_fees`, `B_F_ID`, `B_startdate`, `B_enddate`, `B_duration`, `B_status`) VALUES ('$name','$venue','$fees','$fid','$startdate','$enddate','$duration','$status')";
 	$temp = $sql->query($string);
 	if($temp){
-		header("localtion:add-batch.php?success");
+		header("location:add-batch.php?success");
 	}
 	else{
 		header("location:add-batch.php?failed");
