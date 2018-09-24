@@ -1,7 +1,7 @@
 <?php 
-require("config.php");
 ob_start();
-include("sidebar.php")
+require("config.php");
+include("sidebar.php");
 ?>
 <?php if (isset($_GET['failed'])) {
 	?>

@@ -6,17 +6,17 @@
             <!-- <div class="form-group col-sm-6 col-lg-4">
                 <input type="text" class="form-control" name="searchkey" style="display: inline-block;">
             </div> -->
-        <h2>Hello World</h2>
-        
-        <div class="line"></div>
+            <h2>Hello World</h2>
+            
+            <div class="line"></div>
 
-        
+            
+        </div>
     </div>
-</div>
-<!-- active element using jquery -->
-<script type="text/javascript">
-    $(document).ready(function(e){
-        $('#dashboard').addClass('active');
+    <!-- active element using jquery -->
+    <script type="text/javascript">
+        $(document).ready(function(e){
+            $('#dashboard').addClass('active');
 
         //jquery for finding function
         // $('#searchkey').change(function(){

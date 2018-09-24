@@ -13,7 +13,7 @@ if (isset($_GET['bid'])) {
 	$string = "UPDATE `batch` SET `D_flag`=1 WHERE B_ID=$id";
 	$temp = $sql->query($string);
 	if($temp){
-		$string1 = "UPDATE `admission` SET `A_status`=0 WHERE `A_B_ID`=$id";
+		$string1 = "UPDATE `admission` SET `D_flag`=1 WHERE `A_B_ID`=$id";
 		$temp1 = $sql->query($string1);
 		header("location:batch.php?del-success");
 	}

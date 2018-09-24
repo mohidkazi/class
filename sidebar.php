@@ -210,7 +210,7 @@
         <a href="#" class="download">button</a>
     </li>
     <li>
-        <a href="login/logout.php" class="article">logout</a>
+        <a href="logout.php" class="article">logout</a>
     </li>
 </ul>
 </nav>

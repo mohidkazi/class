@@ -1,6 +1,6 @@
 <?php 
-require("config.php");
 ob_start();
+require("config.php");
 include("sidebar.php");
 ?>
 <!-- edit and update for faculty only -->

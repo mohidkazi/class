@@ -28,7 +28,6 @@ if (isset($_GET['update-failed'])) {
 				<th>Batch</th>
 				<th>Fees</th>
 				<th>Date</th>
-				<th>Status</th>
 				<th>Operation</th>
 			</tr>
 		</thead>
@@ -55,14 +54,6 @@ if (isset($_GET['update-failed'])) {
 					}?></td>
 					<td><?php echo $demo[3]; ?></td>
 					<td><?php echo $demo[4]; ?></td>
-					<td><?php 
-					if($demo[5]){
-						echo "Ongoing";
-					}
-					else{
-						echo "Completed";
-					}
-					?></td>
 					<td>
 						<a data-toggle="modal" data-target="#deletebtn<?php echo $demo[0]; ?>" title="delete"><i class="fas fa-trash-alt text-danger"></i></a>&nbsp
 						<a href="edit.php?admid=<?php echo $demo[0]; ?>"><i class="fas fa-user-edit text-primary"></i></a>

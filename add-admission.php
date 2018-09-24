@@ -1,6 +1,6 @@
 <?php 
-require("config.php");
 ob_start();
+require("config.php");
 include("sidebar.php");
 ?>
 <?php if (isset($_GET['wrong'])) {
@@ -26,21 +26,17 @@ include("sidebar.php");
 				<label for="stu1"><code>*</code></label>
 				<input type="text" class="form-control" id="stu1"  placeholder="Last Name" name="lastname">
 			</div>
-			<div class="form-group col-sm-3">
+			<div class="form-group col-sm-4">
 				<label for="bat">Batch Name<code>*</code></label>
 				<input type="text" class="form-control" id="bat" placeholder="Batch ID" name="batch_name">
 			</div>
-			<div class="form-group col-sm-3">
+			<div class="form-group col-sm-4">
 				<label for="fees">Fees<code>*</code></label>
 				<input type="number" class="form-control" id="fees" placeholder="Fees" name="fees">
 			</div>
-			<div class="form-group col-sm-3">
+			<div class="form-group col-sm-4">
 				<label for="date">Date<code>*</code></label>
 				<input type="date" class="form-control" id="date" name="date">
-			</div>
-			<div class="form-group col-sm-3">
-				<label for="stat">Status<code>*</code></label>
-				<input type="text" class="form-control" id="stat"  placeholder="Status" name="status">
 			</div>
 		</div>
 		<div class="row justify-content-center">
@@ -55,27 +51,24 @@ if (isset($_POST['adm-submit'])) {
 	$batch_name = secure($_POST['batch_name']);
 	$fees = secure($_POST['fees']);
 	$date = secure($_POST['date']);
-	$status = secure($_POST['status']);
-	if ($status = 'Ongoing' OR $status = 'ongoing' OR $status = 'on' OR $status = 'started') {
-		$status = 1;
-		$str1 = "SELECT S_ID FROM student WHERE S_fname='$firstname' AND S_lname='$lastname' AND D_flag=0";
-		$temp1 = $sql->query($str1);
-		$str2 = "SELECT B_ID FROM batch WHERE B_name='$batch_name' AND D_flag=0";
-		$temp2 = $sql->query($str2);
-		if ($demo2 = $temp2->fetch_row() AND $demo1 = $temp1->fetch_row()) {
 
-			$string = "INSERT INTO `admission` (`A_S_ID`, `A_B_ID`, `A_fees`, `A_date`, `A_status`) VALUES ('$demo1[0]','$demo2[0]','$fees','$date','$status')";
-			$temp = $sql->query($string);
-			if($temp){
-				header("location:add-admission.php?success");
-			}
-			else{
-				header("location:add-admission.php?failed");
-			}
+	$str1 = "SELECT S_ID FROM student WHERE S_fname='$firstname' AND S_lname='$lastname' AND D_flag=0";
+	$temp1 = $sql->query($str1);
+	$str2 = "SELECT B_ID FROM batch WHERE B_name='$batch_name' AND D_flag=0";
+	$temp2 = $sql->query($str2);
+	if ($demo2 = $temp2->fetch_row() AND $demo1 = $temp1->fetch_row()) {
+
+		$string = "INSERT INTO `admission` (`A_S_ID`, `A_B_ID`, `A_fees`, `A_date`) VALUES ('$demo1[0]','$demo2[0]','$fees','$date')";
+		$temp = $sql->query($string);
+		if($temp){
+			header("location:add-admission.php?success");
 		}
 		else{
-			header("location:add-admission.php?wrong");
+			header("location:add-admission.php?failed");
 		}
+	}
+	else{
+		header("location:add-admission.php?wrong");
 	}
 }
 ?>

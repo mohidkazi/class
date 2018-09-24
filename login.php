@@ -1,5 +1,5 @@
 <?php
-require("../config.php");
+require("config.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -48,7 +48,7 @@ if(isset($_POST['submit'])){
   if($row=$temp->fetch_row()){
     $_SESSION['lid'] = $row[0];
     $_SESSION['aid'] = $row[0];
-    header("location:../index.php");
+    header("location:index.php");
   }
   else{
     header("location:login.php?incorrect");
@@ -61,7 +61,7 @@ if (isset($_POST['submit'])) {
   $temp=$sql->query($str);
   if ($demo=$temp->fetch_row()) {
     $_SESSION['lid'] = $demo[0];
-    header("location:../index.php");
+    header("location:index.php");
   }
   else{
     header("location:login.php?incorrect");
