@@ -4,65 +4,129 @@ require("config.php");
 include("sidebar.php");
 ?>
 <!-- right side content -->
-
 <!-- header for attendence including batch name, faculty and date -->
 <div class="container">
-	<form action="" method="post">
-		<div class="row">
-			<div class="form-group col-sm-3">
+	<form action="#" method="post">
+		<div class="row mb-1">
+			<div class=" col-sm-3">
 				<h2>Attendence:-</h2>
 			</div>
-			<div class="form-group col-sm-3">
-				<label for="sel">Batch Name:</label>
-				<select class="form-control" id="sel">
-					<option value="">Select</option>
-					<option value="math-1">math-1</option>
-					<option value="math-2">math-2</option>
-					<option value="math-3">math-3</option>
-					<option value="tcs">tcs</option>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-4">
+				<label>Batch Name:</label>
+				<select class="form-control" id="Batch" name="batch" onchange="thisshouldwork()">
+					<option value="">Batch</option>
+					<?php
+					$string = "SELECT * FROM `batch`";
+					$temp = $sql->query($string);
+					while($demo = $temp->fetch_row()){
+						?> 
+						<option value="<?php echo $demo[0]; ?>"><?php echo $demo[1]; ?></option> 
+						<?php 
+					}
+					?> 
 				</select>
 			</div>
-			<div class="form-group col-sm-3">
-				<label for="sel">Faculty:</label>
-				<input class="form-control" value="<?php ?>" disabled></input>
+			<div class="form-group col-sm-4">
+				<label>Faculty:</label>
+				<input class="form-control" value="" id="Faculty" disabled></input>
 			</div>
-			<div class="form-group col-sm-3">
-				<label for="sel">Date:</label>
-				<input class="form-control" value="<?php echo Date('d-m-Y'); ?>" disabled></input>
+			<div class="form-group col-sm-4">
+				<label>Date:</label>
+				<input class="form-control" value="<?php echo Date('Y-m-d'); ?>" id="date" name="date" disabled></input>
+			</div>
+		</div>
+
+		<!-- table starts here -->
+		<div class="table-responsive">
+			<table class="display table" id="datatable">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Roll No.</th>
+						<th>Student Name</th>
+						<th>Attendence</th>
+					</tr>
+				</thead>
+				<tbody class="ajaxtable">
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="form-group text-center">
+				<button type="submit" name="submit" class="btn btn-primary">submit</button>
 			</div>
 		</div>
 	</form>
 </div>
-<!-- table starts here -->
-<div class="table-responsive">
-	<table class="display table" id="datatable">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Roll No.</th>
-				<th>Student Name</th>
-				<th>Attendence</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+<?php
+if (isset($_POST['submit']) && !empty($_POST['batch'])) {
+	$batch = secure($_POST['batch']);
 
+	$string = "SELECT *  FROM `admission` WHERE A_B_ID=$batch AND D_flag=0";
+	$temp = $sql->query($string);
+	$i=1;
+	while ($demo = $temp->fetch_row()) {
+		echo "<script>console.log('Admision id : ' + $demo[0] );</script>";
+		$ins = count($demo);
+		if (!empty($_POST['checkbox'.$i])) {
+			$checkbox = secure($_POST['checkbox'.$i]);
+			echo "<script>console.log('checkbox no :'+ $i );</script>";
+			$string1 = "INSERT INTO `attendence`(`Att_Adm_ID`, `Att_status`, `Att_Date`) VALUES ($demo[0] ,'$checkbox' ,'Date(Y-m-d)')";
+			$temp1 = $sql->query($string1);
+		}
+		$i++;
+	}
+}
+?>
 
 
 </div>
 </div>
 <script type="text/javascript">
-	$(document).ready(function(e){
-		$('#attendence , #dstudent').toggleClass('active');
-		$('#datatable').DataTable();
+	function thisshouldwork(){
+			//ajax starts here
+			// fetching data from faculty and student using batch id
+			// $('#Batch').change(function(){
+				var bname = $('#Batch').val();
+				$.ajax(
+				{
+					type : "POST",
+					datatype : "json",
+					url : "backend.php",
+					data :
+					{
+						bname : bname
+					},
+					success : function(data)
+					{
+						var Data = JSON.parse(data);
+						$('.ajaxtable').html(Data[1]);
+						$('#Faculty').val(Data[0].F_fname+" "+Data[0].F_lname);
+						// console.log(Data[0]);
+					}
+				});
+
+				// $.post(
+				// 	"backend.php",
+				// 	{bname : bname},
+				// 	function(data)
+				// 	{
+				// 		console.log(data);
+				// 	}
+				// 	);
+
+			// });
+		}
+
+		$(document).ready(function(){
+			$('#attendence , #dstudent').toggleClass('active');
+		// $('#datatable').DataTable();
 	});
 </script>
 </body>

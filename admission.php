@@ -1,4 +1,4 @@
-<?php
+ <?php
 ob_start();
 require("config.php");
 include("sidebar.php");
@@ -33,7 +33,7 @@ if (isset($_GET['update-failed'])) {
 		</thead>
 		<tbody>
 			<?php
-			$string = "SELECT * FROM `admission` WHERE `D_flag`=0";
+			$string = "SELECT * FROM `admission` WHERE `D_flag`=0 ORDER BY `A_B_ID` ASC";
 			$temp = $sql->query($string);
 			$i=1;
 			while ($demo = $temp->fetch_row()) {

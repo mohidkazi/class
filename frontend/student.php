@@ -8,7 +8,7 @@
   <meta name="author" content="">
   <!-- <link rel="icon" href=""> -->
   <title>Registration Form</title>
-  <link href="bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="student.css" rel="stylesheet">
   <script src="../js/jquery.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -22,7 +22,7 @@
 <body class="text-center bg-info">
   <form class="form-signin" action="#" method="post">
     <i class="fas fa-user-graduate fa-10x text-light mb-2"></i>
-        <?php if (isset($_GET['registered'])) {
+    <?php if (isset($_GET['registered'])) {
       ?>
       <div id="dispnone"><div class="card mb-2" style="background-color: white; color: grey; text-align: center;"><div class="card-body">Thank You for Registering</div></div></div>
       <script>

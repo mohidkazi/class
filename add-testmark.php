@@ -19,12 +19,12 @@ include("sidebar.php");
 	<form action="" method="post">
 		<div class="row">
 			<div class="form-group col-sm-6">
-				<label for="fname">First Name</label>
-				<input type="text" class="form-control" id="fname" aria-describedby="emailHelp" placeholder="First Name" name="firstname">
+				<label for="roll">Roll No</label>
+				<input type="text" class="form-control" id="roll" aria-describedby="emailHelp" placeholder="Roll Number" name="rollno">
 			</div>
 			<div class="form-group col-sm-6">
-				<label for="lname">Last Name</label>
-				<input type="text" class="form-control" id="lname" placeholder="Last Name" name="lastname">
+				<label for="con">Contact</label>
+				<input type="text" class="form-control" id="con" placeholder="Contact Number" name="contact">
 			</div>
 			<div class="form-group col-sm-3">
 				<label for="bname">Batch Name</label>
@@ -52,14 +52,14 @@ include("sidebar.php");
 </div>
 <?php 
 if (isset($_POST['add-test-submit'])) {
-	$firstname = secure($_POST['firstname']);
-	$lastname = secure($_POST['lastname']);
+	$rollno = secure($_POST['rollno']);
+	$contact = secure($_POST['contact']);
 	$batchname = secure($_POST['batchname']);
 	$marks = secure($_POST['marks']);
 	$testtype = secure($_POST['testtype']);
 	$testcomment = secure($_POST['testcomment']);
 
-	$string = "SELECT admission.A_ID FROM ((`admission` INNER JOIN `batch` ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID) INNER JOIN `student` ON student.S_fname='$firstname' AND student.S_lname='$lastname' AND student.S_ID=admission.A_S_ID)";
+	$string = "SELECT admission.A_ID FROM ((`admission` INNER JOIN `batch` ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID) INNER JOIN `student` ON student.S_Roll='$rollno' OR student.S_contact='$contact' AND student.S_ID=admission.A_S_ID)";
 	$temp = $sql->query($string);
 	if ($demo = $temp->fetch_row()) {
 
