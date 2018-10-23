@@ -14,7 +14,7 @@ if (isset($_POST['faculty-submit'])) {
 	$doj = secure($_POST['doj']);
 	$id = secure($_GET['fid']);
 
-	$string = "UPDATE `faculty` SET `F_fname`='$firstname',`F_lname`='$lastname',`F_contact`='$contact',`F_email`='$email',`F_address`='$address',`F_qualification`='$qualification',`F_experience`='$experience',`F_picture`='',`F_about`='$about',`F_DOJ`='$doj' WHERE `F_ID`=$id";
+	$string = "UPDATE `faculty` SET `F_fname`='$firstname',`F_lname`='$lastname',`F_contact`='$contact',`F_email`='$email',`F_address`='$address',`F_qualification`='$qualification',`F_experience`='$experience',`F_picture`='',`F_about`='$about',`F_DOJ`='$doj' WHERE `F_ID`=$id AND D_flag=0";
 	$temp = $sql->query($string);
 	if ($temp) {
 		header("location:faculty.php?update-success");
@@ -35,7 +35,7 @@ if (isset($_POST['batch-submit'])) {
 	$duration = secure($_POST['duration']);
 	$status = secure($_POST['status']);
 	$id = secure($_GET['bid']);
-	$string = "UPDATE `batch` SET `B_name`='$name',`B_venue`='$venue',`B_fees`='$fees',`B_F_ID`='$fid',`B_startdate`='$startdate',`B_enddate`='$enddate',`B_duration`='$duration',`B_status`='$status' WHERE `B_ID`=$id ";
+	$string = "UPDATE `batch` SET `B_name`='$name',`B_venue`='$venue',`B_fees`='$fees',`B_F_ID`='$fid',`B_startdate`='$startdate',`B_enddate`='$enddate',`B_duration`='$duration',`B_status`='$status' WHERE `B_ID`=$id AND D_flag=0";
 	$temp = $sql->query($string);
 	if ($temp) {
 		header("location:batch.php?update-success");
@@ -55,7 +55,7 @@ if (isset($_POST['ss-submit'])) {
 	$doj = SECURE($_POST['doj']);
 	$id = SECURE($_GET['ssid']);
 
-	$string = "UPDATE `supportstaff` SET `SS_fname`='$firstname',`SS_lname`='$lastname',`SS_contact`='$contact',`SS_email`='$email',`SS_address`='$address',`SS_DOJ`='$doj' WHERE `SS_ID`=$id";
+	$string = "UPDATE `supportstaff` SET `SS_fname`='$firstname',`SS_lname`='$lastname',`SS_contact`='$contact',`SS_email`='$email',`SS_address`='$address',`SS_DOJ`='$doj' WHERE `SS_ID`=$id AND D_flag=0";
 	$temp = $sql->query($string);
 	if($temp){
 		header("location:staff.php?update-success");
@@ -67,28 +67,34 @@ if (isset($_POST['ss-submit'])) {
 
 //update admission table
 if (isset($_POST['adm-submit'])) {
-	$firstname = secure($_POST['firstname']);
-	$lastname = secure($_POST['lastname']);
-	$batchname = secure($_POST['batch_name']);
 	$fees = secure($_POST['fees']);
 	$date = secure($_POST['date']);
 	$status = secure($_POST['status']);
 	$id = secure($_GET['admid']);
 
-	$str1 = "SELECT S_ID FROM `student` WHERE S_fname='$firstname' AND S_lname='$lastname'";
-	$tmp1 = $sql->query($str1);
+	$string = "UPDATE `admission` SET `A_fees`='$fees',`A_date`='$date' WHERE `A_ID`=$id AND D_flag=0";
+	$temp = $sql->query($string);
+	if($temp){
+		header("location:admission.php?update-success");
+	}
+	else{
+		header("location:admission.php?update-failed");
+	}
+}
 
-	$str2 = "SELECT B_ID FROM `batch` WHERE B_name='$batchname'";
-	$tmp2 = $sql->query($str2);
-	if($demo1 = $tmp1->fetch_row() AND $demo2 = $tmp2->fetch_row()){
-		$string = "UPDATE `admission` SET `A_S_ID`=$demo1[0],`A_B_ID`=$demo2[0],`A_fees`='$fees',`A_date`='$date',`A_status`=$status WHERE `A_ID`=$id";
-		$temp = $sql->query($string);
-		if($temp){
-			header("location:admission.php?update-success");
-		}
-		else{
-			header("location:admission.php?update-failed");
-		}
+// update expense table
+if (isset($_POST['exp-submit'])) {
+	$eid = secure($_GET['eid']);
+	$reason = secure($_POST['reason']);
+	$amount = secure($_POST['amount']);
+
+	$string = "UPDATE `expense` SET `E_reason`='$reason',`E_amount`='$amount' WHERE `E_ID`=$eid";
+	$temp = $sql->query($string);
+	if ($temp) {
+		header("location:expense.php?update-success");
+	}
+	else{
+		header("location:expense.php?update-failed");
 	}
 }
 ?>

@@ -3,6 +3,13 @@ ob_start();
 require("config.php");
 include("sidebar.php");
 ?>
+<!-- right side content -->
+	<div class="container">
+		<div class="row mb-1 mx-0">
+		<div class="col-sm-3 col-md-4">
+			<h2>Timetable:-</h2>
+		</div>
+	</div>
 <div class="table-responsive">
 	<table class="display table" id="datatable">
 		<thead>
@@ -47,12 +54,13 @@ include("sidebar.php");
 		</tbody>
 	</table>
 </div>
+</div>
 
 </div>
 </div>
 <script type="text/javascript">
 	$(document).ready(function(e){
-		$('#timetable').toggleClass('active');
+		$('#timetable , #dbatch').toggleClass('active');
 		$('#datatable').DataTable();
 	});
 </script>

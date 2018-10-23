@@ -2,16 +2,22 @@
 ob_start();
 require("config.php");
 include("sidebar.php");
-?>
-<?php if (isset($_GET['failed'])) {
+
+if (isset($_GET['failed'])) {
 	?>
-	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FF7F7F; color: #FA0404; border-color: red;text-align: center;"><div class="card-body">Failed To Add Batch</div></div></div>
-<?php } ?>
-<?php if (isset($_GET['success'])) { ?>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">Failed To Add Batch</div></div></div>
+	<?php
+}
+if (isset($_GET['success'])) { ?>
 	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class="card-body">Batch Added Successfully</div></div></div>
 <?php } ?>
 <!-- add new batch -->
 <div class="container">
+	<div class="row mb-1 mx-0">
+		<div class="col-sm-3 col-md-4">
+			<h2>Add Details:-</h2>
+		</div>
+	</div>
 	<form action="add-batch.php" method="post">
 		<div class="form-row">
 			<div class="form-group col-sm-6">

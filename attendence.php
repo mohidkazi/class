@@ -6,12 +6,12 @@ include("sidebar.php");
 <!-- right side content -->
 <!-- header for attendence including batch name, faculty and date -->
 <div class="container">
-	<form action="#" method="post">
-		<div class="row mb-1">
-			<div class=" col-sm-3">
+	<div class="row mb-1 mx-0">
+			<div class="col-sm-3 col-md-4">
 				<h2>Attendence:-</h2>
 			</div>
 		</div>
+	<form action="#" method="post">
 		<div class="row">
 			<div class="form-group col-sm-4">
 				<label>Batch Name:</label>
@@ -72,14 +72,19 @@ if (isset($_POST['submit']) && !empty($_POST['batch'])) {
 	$temp = $sql->query($string);
 	$i=1;
 	while ($demo = $temp->fetch_row()) {
-		echo "<script>console.log('Admision id : ' + $demo[0] );</script>";
-		$ins = count($demo);
-		if (!empty($_POST['checkbox'.$i])) {
-			$checkbox = secure($_POST['checkbox'.$i]);
-			echo "<script>console.log('checkbox no :'+ $i );</script>";
-			$string1 = "INSERT INTO `attendence`(`Att_Adm_ID`, `Att_status`, `Att_Date`) VALUES ($demo[0] ,'$checkbox' ,'Date(Y-m-d)')";
-			$temp1 = $sql->query($string1);
+		if (!empty($_POST['checkbox'.$i]))
+		{
+			$checkbox = 1;
 		}
+		if(empty($_POST['checkbox'.$i]))
+		{
+			$checkbox = 0;
+		}
+		// echo "<script>console.log('Admision id : ' + $demo[0] );</script>";
+			// $checkbox = secure($_POST['checkbox'.$i]);
+		// echo "<script>console.log('checkbox no :'+ $i );</script>";
+		$string1 = "INSERT INTO `attendence`(`Att_Adm_ID`, `Att_status`, `Att_Date`) VALUES ($demo[0] ,'$checkbox' ,'".Date('Y-m-d')."')";
+		$temp1 = $sql->query($string1);
 		$i++;
 	}
 }

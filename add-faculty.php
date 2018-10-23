@@ -5,13 +5,18 @@ include("sidebar.php");
 ?>
 <?php if (isset($_GET['failed'])) {
 	?>
-	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FF7F7F; color: #FA0404; border-color: red;text-align: center;"><div class="card-body">Failed To Insert Details</div></div></div>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">Failed To Insert Details</div></div></div>
 <?php } ?>
 <?php if (isset($_GET['success'])) { ?>
 	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class="card-body">Details Inserted Successfully</div></div></div>
 <?php } ?>
 <!-- page content on right side -->
 <div class="container">
+	<div class="row mb-1 mx-0">
+		<div class="col-sm-3 col-md-4">
+			<h2>Add Details:-</h2>
+		</div>
+	</div>
 	<form action="add-faculty.php" method="post">
 		<div class="form-row">
 			<div class="form-group col-md-6">
@@ -53,7 +58,7 @@ include("sidebar.php");
 			</div>
 			<div class="form-group col-md-6">
 				<label for="pic">Picture</label>
-				<input type="file" class="form-control-file" id="pic" name="image">
+				<input type="file" class="form-control-file" id="pic" name="file" accept=".jpeg,.jpg,.png">
 			</div>
 			<div class="form-group col-md-6">
 				<label for="exp1">Experience<code>*</code></label>
@@ -83,11 +88,13 @@ if(isset($_POST['faculty-submit'])){
 	$email = secure($_POST['email']);
 	$address = secure($_POST['address']);
 	$qualification = secure($_POST['qualification']);
+	// $image = $_FILES['file']['name'];
 	$experience = secure($_POST['experience']);
 	$about = secure($_POST['about']);
 	$doj = secure($_POST['doj']);
 
-	$string = "INSERT INTO `faculty`(`F_fname`, `F_lname`, `F_contact`, `F_email`, `F_address`, `F_qualification`, `F_experience`,`F_about`, `F_DOJ`) VALUES ('$firstname','$lastname','$contact','$email','$address','$qualification','$experience','$about','$doj')";
+	// move_uploaded_file($_FILES['file']['tmp_name'],"image/".$_FILES['file']['name']);
+	$string = "INSERT INTO `faculty`(`F_fname`, `F_lname`, `F_contact`, `F_email`, `F_address`, `F_qualification`, `F_experience`, `F_picture` , `F_about`, `F_DOJ`) VALUES ('$firstname','$lastname','$contact','$email','$address','$qualification','$experience', '' ,'$about','$doj')";
 	$temp = $sql->query($string);
 	if($temp){header("location:add-faculty.php?success");}
 	else{header("location:add-faculty.php?failed");}

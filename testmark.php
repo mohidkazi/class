@@ -14,11 +14,16 @@ if (isset($_GET['update-success'])) {
 <?php 
 if (isset($_GET['update-failed'])) {
 	?>
-	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-3 mx-auto" style="background-color: #ff6666; color: red; border-color: red;text-align: center;"><div class="card-body">Update Failed</div></div></div>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-5 col-lg-3 mx-auto" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">Update Failed</div></div></div>
 <?php } ?>
 <!-- right side content -->
 <div class="container">
-	<table class="table" id="">
+	<div class="row mb-1 mx-0">
+		<div class="col-sm-4 col-md-5">
+			<h2>Test Marks:-</h2>
+		</div>
+	</div>
+	<table class="table display" id="datatable">
 		<thead>
 			<tr>
 				<th>#</th>

@@ -5,40 +5,54 @@ include("sidebar.php");
 ?>
 <?php if (isset($_GET['wrong'])) {
 	?>
-	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FF7F7F; color: #FA0404; border-color: red;text-align: center;"><div class="card-body">student name or batch name incorrect</div></div></div>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">student name or batch name incorrect</div></div></div>
 <?php } ?>
 <?php if (isset($_GET['failed'])) {
 	?>
-	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FF7F7F; color: #FA0404; border-color: red;text-align: center;"><div class="card-body">Failed To Insert Details</div></div></div>
+	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">Failed To Insert Details</div></div></div>
 <?php } ?>
 <?php if (isset($_GET['success'])) { ?>
 	<div class="container" id="dispnone"><div class="card mb-2 col-sm-6 col-lg-4 mx-auto" style="background-color: #4CFF65; color: green; border-color: green;text-align: center;"><div class="card-body">Details Inserted Successfully</div></div></div>
 <?php } ?>
 <!-- right side content -->
 <div class="container">
+	<div class="row mb-1 mx-0">
+		<div class="col-sm-3 col-md-4">
+			<h2>Add Details:-</h2>
+		</div>
+	</div>
 	<form action="" method="post">
-		<div class="row">
-			<div class="form-group col-sm-6">
+		<div class="row mx-0">
+			<div class="form-group col-sm-4">
+				<label for="bname">Batch Name</label>
+				<!-- <input type="text" class="form-control" id="bname" placeholder="Batch Name" name="batchname"> -->
+				<select name="batchname" id="bname" class="form-control">
+					<option value="">Batch Name</option>
+					<?php
+					$string = "SELECT * FROM `batch` WHERE D_flag=0";
+					$temp = $sql->query($string);
+					while($demo = $temp->fetch_row()){
+						echo "<option value='$demo[0]'> $demo[1]</option>";
+					}
+					?>
+				</select>
+			</div>
+		</div>
+		<div class="row mx-0">
+			<div class="form-group col-sm-6 col-md-4">
 				<label for="roll">Roll No</label>
 				<input type="text" class="form-control" id="roll" aria-describedby="emailHelp" placeholder="Roll Number" name="rollno">
 			</div>
-			<div class="form-group col-sm-6">
-				<label for="con">Contact</label>
-				<input type="text" class="form-control" id="con" placeholder="Contact Number" name="contact">
-			</div>
-			<div class="form-group col-sm-3">
-				<label for="bname">Batch Name</label>
-				<input type="text" class="form-control" id="bname" placeholder="Batch Name" name="batchname">
-			</div>
-			<div class="form-group col-sm-2">
+			
+			<div class="form-group col-sm-6 col-md-4">
 				<label for="tm">Test Marks</label>
 				<input type="text" class="form-control" id="tm" placeholder="Test Marks" name="marks">
 			</div>
-			<div class="form-group col-sm-3">
+			<div class="form-group col-sm-6 col-md-4">
 				<label for="tt">Test Type</label>
 				<input type="text" class="form-control" id="tt" placeholder="Test Type" name="testtype">
 			</div>
-			<div class="form-group col-sm-4">
+			<div class="form-group col-sm-6 col-md-4">
 				<label for="c">Comment</label>
 				<input type="text" class="form-control" id="c" placeholder="Comment" name="testcomment">
 			</div>
@@ -53,13 +67,12 @@ include("sidebar.php");
 <?php 
 if (isset($_POST['add-test-submit'])) {
 	$rollno = secure($_POST['rollno']);
-	$contact = secure($_POST['contact']);
 	$batchname = secure($_POST['batchname']);
 	$marks = secure($_POST['marks']);
 	$testtype = secure($_POST['testtype']);
 	$testcomment = secure($_POST['testcomment']);
 
-	$string = "SELECT admission.A_ID FROM ((`admission` INNER JOIN `batch` ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID) INNER JOIN `student` ON student.S_Roll='$rollno' OR student.S_contact='$contact' AND student.S_ID=admission.A_S_ID)";
+	$string = "SELECT admission.A_ID FROM ((`admission` INNER JOIN `batch` ON batch.B_name='$batchname' AND batch.B_ID=admission.A_B_ID) INNER JOIN `student` ON student.S_Roll='$rollno' AND student.S_ID=admission.A_S_ID)";
 	$temp = $sql->query($string);
 	if ($demo = $temp->fetch_row()) {
 

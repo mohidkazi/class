@@ -11,8 +11,8 @@ require("config.php");
   <!-- <link rel="icon" href=""> -->
   <title>Login</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <link href="../css/login.css" rel="stylesheet">
-  <script src="../js/jquery.js"></script>
+  <link href="css/login.css" rel="stylesheet">
+  <script src="js/jquery.js"></script>
   <script>
     $(document).ready(function(){
       $('#dispnone div').click(function(){
@@ -28,7 +28,7 @@ require("config.php");
     <?php 
     if (isset($_GET['incorrect'])) {
       ?>
-      <div id="dispnone"><div class="card mb-2" style="background-color: #FF7F7F; color: #FA0404; border-color: red;text-align: center;"><div class="card-body">Username or Password Incorrect</div></div></div>
+      <div id="dispnone"><div class="card mb-2" style="background-color: #FFAAA1; color: red; border-color: red;text-align: center;"><div class="card-body">Username or Password Incorrect</div></div></div>
     <?php } ?>
     <label for="un" class="sr-only">User Name</label>
     <input type="text" id="un" class="form-control" placeholder="User Name" name="username" required autofocus>

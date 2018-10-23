@@ -13,35 +13,35 @@
     <script src="js/popper.js"></script>
     <!------------------------------------------------------------------------------------------------------------------ -->
     <!-- Bootstrap CSS CDN -->
-   <!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"> -->
+    <!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"> -->
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style4.css">
     <link rel="stylesheet" href="css/menu.css">
     <!-- Datatable CDN -->
-    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <!------------------------------------------------------------------------------------------------------------------->
     <!-- jQuery CDN -->
     <!-- <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
-    <!-- Popper.JS -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> -->
-    <!-- Bootstrap JS -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
-    <!-- Datatable Jquery CDN -->
-    <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            /*sidebar animation*/
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-            /*menu icon animation*/
-            $("#sidebarCollapse").click(function() {
-                $('.wrapper-menu').toggleClass("open");
-            });
+        src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+        <!-- Popper.JS -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> -->
+        <!-- Bootstrap JS -->
+        <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
+        <!-- Datatable Jquery CDN -->
+        <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                /*sidebar animation*/
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                });
+                /*menu icon animation*/
+                $("#sidebarCollapse").click(function() {
+                    $('.wrapper-menu').toggleClass("open");
+                });
             //message display none
             $('#dispnone div').click(function(){
                 $('#dispnone').fadeOut();
@@ -50,7 +50,7 @@
     </script>
 </head>
 
-<body>
+<body style="background-color: #FFFFFF;">
 
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -177,35 +177,49 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="expense.php" id="expense">
-                        <i class="fas fa-money-bill-alt"></i>
-                        Expense
-                    </a>
-                </li>
-                <li>
-                    <a href="#ssmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="supportstaff">
-                       <i class="fas fa-keyboard"></i>
-                       Support Staff
-                   </a>
-                   <ul class="collapse list-unstyled" id="ssmenu">
+                    <a href="#exp" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="dexpense">
+                     <i class="fas fa-keyboard"></i>
+                     Expense
+                 </a>
+                 <ul class="collapse list-unstyled" id="exp">
                     <li>
-                        <a href="staff.php" id="sstaff">
-                           <i class="fas fa-keyboard"></i>
-                           Support Staff
-                       </a>
-                   </li>
-                   <li>
-                    <a href="add-staff.php" id="addstaff">
-                      <i class="fas fa-plus-circle"></i>
-                      Add Staff
-                  </a>
-              </li>
-          </ul>
+                        <a href="expense.php" id="expense">
+                            <i class="fas fa-money-bill-alt"></i>
+                            Expense
+                        </a>
+                    </li>
+                    <li>
+                        <a href="add-expense.php" id="add-expense">
+                          <i class="fas fa-plus-circle"></i>
+                          Add Expense
+                      </a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#ssmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="supportstaff">
+             <i class="fas fa-keyboard"></i>
+             Support Staff
+         </a>
+         <ul class="collapse list-unstyled" id="ssmenu">
+            <li>
+                <a href="staff.php" id="sstaff">
+                 <i class="fas fa-keyboard"></i>
+                 Support Staff
+             </a>
+         </li>
+         <li>
+            <a href="add-staff.php" id="addstaff">
+              <i class="fas fa-plus-circle"></i>
+              Add Staff
+          </a>
       </li>
   </ul>
-  <!---------------------------------------------------------------->
-  <div class="btn" id="clob"><a href="logout.php" style="color: black;">logout</a></div>
-  <ul class="list-unstyled CTAs">
+</li>
+</ul>
+<!---------------------------------------------------------------->
+<div class="btn" id="clob"><a href="logout.php" style="color: black;">logout</a></div>
+<ul class="list-unstyled CTAs">
     <li>
         <a href="#" class="download">button</a>
     </li>
